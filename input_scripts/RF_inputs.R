@@ -56,7 +56,7 @@ for (i in 1:194){
     int$reformRRR[i]<-reform_vol
   }
   
-  #bump countries at voluntary up to mandatory? 
+  #bump countries at voluntary up to mandatory? no.
   #else if (int$`salt policy: product reform`[i]=="yes" &
   #         int$`salt policy: enforcement`[i]=="voluntary"){
   #  int$reformRRR[i]<-(reform_mand-reform_vol)*pkg_food
@@ -120,6 +120,7 @@ for (i in 1:194){
 
 int$reduxadj[int$reduxadj<0]<-0
 
+#mortality impact based on https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7601012/
 int$mort.redux<-(1-(1/1.06))*int$reduxadj
 
 write.csv(int%>%select(c(iso, country, mort.redux)), "salt_effects.csv", row.names = F)
@@ -164,3 +165,9 @@ tfa$mort.redux[tfa$Score<3]<-tfa$CHD[tfa$Score<3]/100
 
 
 write.csv(tfa%>%select(c(iso, mort.redux)), "tfa_effects.csv", row.names = F)
+
+
+#################
+#tobacco and alcohol 
+################
+
