@@ -21,7 +21,7 @@ load("Outputs/goal.q30.Rda")
 
 Global Heat Maps
 
-```{r fig.width=8}
+```{r fig.width=8, include=FALSE}
 ##need to add text label for numbers
 
 ggplot(summary, aes(x=s_covid, y=s_inc*100, fill=adj.diff))+
@@ -31,8 +31,8 @@ ggplot(summary, aes(x=s_covid, y=s_inc*100, fill=adj.diff))+
   labs(fill="Excess NCD deaths")+
   ylab("Annual absolute increase in coverage (%)")+
   xlab("Covid adjustment factor")+
-  ggtitle("Global excess NCD deaths and the number of countries \nachieving a one-third reduction in 40q30 \nby each covid and intervention scale-up scenario")
-  #labs(caption = "Text numbers represent number of countries achieving 40q30 target")
+  ggtitle("Global excess NCD deaths and the number of countries \nachieving a one-third reduction in 40q30 \nby each covid and intervention scale-up scenario")+
+labs(caption = "*Text numbers represent number of countries achieving 40q30 target")
 
 ggplot(summary, aes(x=s_covid, y=s_inc*100, fill=n.reaches))+
   geom_tile()+
@@ -41,8 +41,8 @@ ggplot(summary, aes(x=s_covid, y=s_inc*100, fill=n.reaches))+
   labs(fill="Number of countries to reach 40q30 target")+
   ylab("Annual absolute increase in coverage (%)")+
   xlab("Covid adjustment factor")+
-  ggtitle("Global excess NCD deaths (millions) and the \nnumber of countries achieving a one-third reduction in 40q30 \nby each covid and intervention scale-up scenario")
-
+  ggtitle("Global excess NCD deaths (millions) and the \nnumber of countries achieving a one-third reduction in 40q30 \nby each covid and intervention scale-up scenario")+
+labs(caption = "*Text numbers represent the number of excess NCD deaths (in millions")
 
 ```
 
@@ -64,7 +64,8 @@ ggplot(plot2%>%filter(location=="Brazil"), aes(x=s_covid, y=s_inc, fill=prog))+
   labs(fill="Progress towards 1/3 reduction in 40q30 (%)")+
   ylab("Annual absolute increase in coverage (%)")+
   xlab("Covid adjustment factor")+
-  ggtitle("Total NCD deaths (millions) and progress towards 40q30 goal (%) \nby each covid and intervention scale-up scenario\n\nBrazil, 2015-2030")
+  ggtitle("Total NCD deaths (millions) and progress towards 40q30 goal (%) \nby each covid and intervention scale-up scenario\n\nBrazil, 2015-2030")+
+labs(caption = "*Text numbers represent the total number of NCD deaths (in millions)")
 
 ggplot(plot2%>%filter(location=="Brazil"), aes(x=s_covid, y=s_inc, fill=ncd.deaths))+
   geom_tile()+
@@ -73,7 +74,8 @@ ggplot(plot2%>%filter(location=="Brazil"), aes(x=s_covid, y=s_inc, fill=ncd.deat
   labs(fill="Total number of NCD deaths (millions)")+
   ylab("Annual absolute increase in coverage (%)")+
   xlab("Covid adjustment factor")+
-  ggtitle("Total NCD deaths (millions) and progress towards 40q30 goal (%) \nby each covid and intervention scale-up scenario \n\nBrazil, 2015-2030")
+  ggtitle("Total NCD deaths (millions) and progress towards 40q30 goal (%) \nby each covid and intervention scale-up scenario \n\nBrazil, 2015-2030")+
+labs(caption = "*Text numbers represent the % progress towards achieving 40q30 target")
 
 
 ggplot(plot2%>%filter(location=="China"), aes(x=s_covid, y=s_inc, fill=ncd.deaths))+
@@ -83,7 +85,8 @@ ggplot(plot2%>%filter(location=="China"), aes(x=s_covid, y=s_inc, fill=ncd.death
   labs(fill="Total number of NCD deaths (millions)")+
   ylab("Annual absolute increase in coverage (%)")+
   xlab("Covid adjustment factor")+
-  ggtitle("Total NCD deaths (millions) and progress towards 40q30 goal (%) \nby each covid and intervention scale-up scenario \n\nChina, 2015-2030")
+  ggtitle("Total NCD deaths (millions) and progress towards 40q30 goal (%) \nby each covid and intervention scale-up scenario \n\nChina, 2015-2030")+
+labs(caption = "*Text numbers represent the % progress towards achieving 40q30 target")
 
 
 ```
@@ -97,13 +100,13 @@ base<-all.q30.out%>%filter(s_covid==0 & s_inc==0)%>%mutate(scenario="Baseline")%
   select(Adjusted, year_id, location_name, scenario)
 best<-all.q30.out%>%filter(s_covid==0 & s_inc==0.05 & year_id>=2019)%>%mutate(scenario="Most optimistic")%>%
   select(Adjusted, year_id, location_name, scenario)
-middle<-all.q30.out%>%filter(s_covid==1 & s_inc==0.03 & year_id>=2019)%>%mutate(scenario="Predicted")%>%
+middle<-all.q30.out%>%filter(s_covid==1 & s_inc==0.03 & year_id>=2019)%>%mutate(scenario="Moderate")%>%
   select(Adjusted, year_id, location_name, scenario)
 worst<-all.q30.out%>%filter(s_covid==2 & s_inc==0 & year_id>=2019)%>%mutate(scenario="Most pessimistic")%>%
   select(Adjusted, year_id, location_name, scenario)
 
 plot3<-bind_rows(base, best, middle, worst)
-plot3$scenario<-factor(plot3$scenario, levels=c("Baseline", "Most pessimistic", "Predicted", "Most optimistic"))
+plot3$scenario<-factor(plot3$scenario, levels=c("Baseline", "Most pessimistic", "Moderate", "Most optimistic"))
 
 ggplot(plot3%>%filter(location_name=="Brazil"), aes(x=year_id, y=Adjusted, color=scenario))+
   geom_point()+
