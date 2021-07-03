@@ -245,4 +245,14 @@ write.csv(tfa, "new_inputs/tfa_policy_effects.csv", row.names = F)
 
 
 ##check that excluding NCD4 causes and selfharm and adding CKD due to diabetes gives you the correct tobacco and alcohol Outcomes
-unique(tob$Outcome)
+causes<-read_excel("new_inputs/GBDtoGHE.xlsx")
+
+which(!unique(tob$Outcome[tob$NCD4=="yes"])%in%unique(causes$gbd))
+unique(tob$Outcome[tob$NCD4=="yes"])[8] #"Esophageal cancer"
+unique(tob$Outcome[tob$NCD4=="yes"])[22] #PAD - which we removed 
+
+tob<-read.csv("Input_Data/tobaccoandalcohol_efficacy5.csv", stringsAsFactors = F)
+tob$Outcome[tob$Outcome=="Oesophageal cancer"]<-"Esophageal cancer"
+tob$NCD4[tob$Outcome=="Peripheral artery disease"]<-"no"
+
+write.csv(tob, "new_inputs/tobaccoandalcohol_efficacy6.csv", row.names = F)
