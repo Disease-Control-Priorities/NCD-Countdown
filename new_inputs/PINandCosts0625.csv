@@ -1,6 +1,7 @@
 NCD,sub_id,Intervention,Epi1,Measure1,StartAge1,StopAge1,Sex1,Adjustment1,Cost adjustment,Traded,Unit cost,Original Unit Cost,Original Currency,Year,Country,calc_ICER,Platform
 1.2,a,Pulmonary rehabilitation,Chronic obstructive pulmonary disease,Prevalence,30,95+,Both,0.095,1.17,0,61.5186,52.58,USD,2016,LIC+LMIC+UMIC,yes,C
-3.3,a,Treatment of early-stage cervical cancer,Cervical cancer,Incidence,20,80,Female,0.236,1.30572,0.3,210.2339772,161.01,USD,2013,LMIC,yes,FLH
+3.3,a,Cervical cancer screening and treatment,Cervical cancer,Incidence,20,80,Female,0.236,1.30572,0.3,210.2339772,161.01,USD,2013,LMIC,yes,FLH
+3.3,b,Cervical cancer screening and treatment,All,Population,20,80,Female,0.2,1.2285,0.3,11.805885,9.61,USD,2013,LMIC,yes,HC
 3.1,a,Medical management of ACS,Ischemic heart disease,Incidence,30,95+,Both,1,1.17,0.3,1619.046,1383.8,R,2005,Brazil,yes,FLH
 3.5,a,COPD acute treatment,Chronic obstructive pulmonary disease,Prevalence,30,95+,Both,0.0855,1.30572,0.3,254.6154,195,USD,2005,Vietnam,yes,FLH
 3.4,a,Asthma acute treatment,Asthma,Prevalence,0,95+,Both,0.13095,1.30572,0.3,254.6154,195,USD,2005,Vietnam,yes,FLH
@@ -9,7 +10,6 @@ NCD,sub_id,Intervention,Epi1,Measure1,StartAge1,StopAge1,Sex1,Adjustment1,Cost a
 3.2,c,Heart failure acute treatment,Hypertensive heart disease,Prevalence,30,95+,Both,0.5,1.17,0.3,4719.3354,4033.62,R,2002,Brazil,yes,FLH
 3.2,d,Heart failure acute treatment,Alcoholic cardiomyopathy,Prevalence,15,95+,Both,0.5,1.17,0.3,4719.3354,4033.62,R,2002,Brazil,yes,FLH
 3.2,e,Heart failure acute treatment,Other cardiomyopathy,Prevalence,0,95+,Both,0.5,1.17,0.3,4719.3354,4033.62,R,2002,Brazil,yes,FLH
-2.8,a,Cervical cancer screening,All,Population,20,80,Female,0.2,1.2285,0.3,11.805885,9.61,USD,2013,LMIC,yes,HC
 2.4,a,CVD primary prevention,All,Population,30,95+,Both,1,1.17,0.3,1.17,1,USD,2012,South Africa,yes,C
 2.4,b,CVD primary prevention,All,Population,30,95+,Both,0.05,1.2285,0.15,22.567545,18.37,USD,2012,Tanzania,yes,HC
 2.4,c,CVD primary prevention,All,Population,30,95+,Both,0.05,1.2285,1,23.378355,19.03,USD,2016,LIC+LMIC+UMIC,yes,HC
@@ -26,7 +26,7 @@ NCD,sub_id,Intervention,Epi1,Measure1,StartAge1,StopAge1,Sex1,Adjustment1,Cost a
 2.6,b,CVD secondary prevention,Ischemic stroke,Prevalence,30,95+,Both,0.5,1.2285,0.15,45.13509,36.74,USD,2012,Tanzania,yes,HC
 2.6,c,CVD secondary prevention,Ischemic heart disease,Prevalence,30,95+,Both,1,1.2285,1,74.655945,60.77,USD,2016,LIC+LMIC+UMIC,yes,HC
 2.6,d,CVD secondary prevention,Ischemic stroke,Prevalence,30,95+,Both,0.5,1.2285,1,74.655945,60.77,USD,2016,LIC+LMIC+UMIC,yes,HC
-2.6,e,CVD secondary prevention,Angina,Incidence,30,95+,Both,1,1.30572,0.3,61.5385836,47.13,USD,2014,Brazil,yes,FLH
+2.6,e,CVD secondary prevention,Ischemic heart disease,Incidence,30,95+,Both,0.25,1.30572,0.3,61.5385836,47.13,USD,2014,Brazil,yes,FLH
 2.6,f,CVD secondary prevention,Stroke,Incidence,30,95+,Both,1,1.30572,0.3,504.4388076,386.33,R,2007,Brazil,yes,FLH
 2.7,a,Heart failure chronic treatment,Heart failure due to ischemic heart disease,Prevalence,30,95+,Both,1,1.2285,1,18.218655,14.83,USD,2016,LIC+LMIC+UMIC,yes,HC
 2.7,b,Heart failure chronic treatment,Heart failure due to ischemic heart disease,Prevalence,30,95+,Both,1,1.2285,0.3,8.1081,6.6,USD,2017,Brazil,yes,HC
