@@ -1,0 +1,496 @@
+Region,Risk,Outcome,Deaths1000,PAF
+High SDI,Smoking,All causes,1407.7,0.149
+High SDI,Smoking,Drug-susceptible tuberculosis,1,0.08
+High SDI,Smoking,Multidrug-resistant tuberculosis without extensive drug resistanc,0,0.086
+High SDI,Smoking,Extensively drug-resistant tuberculosis,0,0.092
+High SDI,Smoking,Lower respiratory infections,65.8,0.179
+High SDI,Smoking,Lip and oral cavity cancer,17.4,0.588
+High SDI,Smoking,Nasopharynx cancer,4.2,0.588
+High SDI,Smoking,Oesophageal cancer,39.4,0.556
+High SDI,Smoking,Stomach cancer,22.4,0.139
+High SDI,Smoking,Colon and rectum cancer,26.6,0.085
+High SDI,Smoking,Liver cancer due to hepatitis B,5.4,0.197
+High SDI,Smoking,Liver cancer due to hepatitis C,10.8,0.183
+High SDI,Smoking,Liver cancer due to alcohol use,6.5,0.235
+High SDI,Smoking,Liver cancer due to other causes,5.1,0.23
+High SDI,Smoking,Pancreatic cancer,40.8,0.237
+High SDI,Smoking,Larynx cancer,14.1,0.802
+High SDI,Smoking,"Tracheal, bronchus, and lung cancer",457.9,0.799
+High SDI,Smoking,Breast cancer,11.2,0.068
+High SDI,Smoking,Cervical cancer,3.4,0.126
+High SDI,Smoking,Prostate cancer,9.3,0.065
+High SDI,Smoking,Kidney cancer,13,0.21
+High SDI,Smoking,Bladder cancer,26.8,0.356
+High SDI,Smoking,Acute lymphoid leukaemia,0.7,0.105
+High SDI,Smoking,Chronic lymphoid leukaemia,2.9,0.157
+High SDI,Smoking,Acute myeloid leukaemia,5,0.133
+High SDI,Smoking,Chronic myeloid leukaemia,1,0.139
+High SDI,Smoking,Other leukaemia,3.5,0.137
+High SDI,Smoking,Ischaemic heart disease,159.3,0.092
+High SDI,Smoking,Ischaemic stroke,29.5,0.069
+High SDI,Smoking,Hemorrhagic stroke,34.6,0.119
+High SDI,Smoking,Hypertensive heart disease,10.2,0.073
+High SDI,Smoking,Atrial fibrillation and flutter,4.5,0.045
+High SDI,Smoking,Aortic aneurysm,7.3,0.098
+High SDI,Smoking,Peripheral vascular disease,2.2,0.064
+High SDI,Smoking,Other cardiovascular and circulatory diseases,13.5,0.078
+High SDI,Smoking,Chronic obstructive pulmonary disease,316.3,0.748
+High SDI,Smoking,Asthma,1.7,0.101
+High SDI,Smoking,Other chronic respiratory diseases,1,0.221
+High SDI,Smoking,Peptic ulcer disease,2.9,0.102
+High SDI,Smoking,Gallbladder and biliary diseases,0.5,0.017
+High SDI,Smoking,Alzheimer's disease and other dementias,23.4,0.024
+High SDI,Smoking,Parkinson's disease,-5.5,-0.064
+High SDI,Smoking,Multiple sclerosis,0.9,0.087
+High SDI,Smoking,Diabetes mellitus,7,0.033
+High SDI,Smoking,Rheumatoid arthritis,0.3,0.035
+High SDI,Smoking,Low back pain,-,-
+High SDI,Smoking,Cataract,-,-
+High SDI,Smoking,Macular degeneration,-,-
+High SDI,Smoking,Pedestrian road injuries,0.2,0.009
+High SDI,Smoking,Cyclist road injuries,0.1,0.011
+High SDI,Smoking,Motorcyclist road injuries,0.1,0.006
+High SDI,Smoking,Motor vehicle road injuries,0.4,0.007
+High SDI,Smoking,Other road injuries,0,0.008
+High SDI,Smoking,Other transport injuries,0.1,0.012
+High SDI,Smoking,Falls,2.9,0.023
+High SDI,Smoking,Other exposure to mechanical forces,0.1,0.008
+High SDI,Smoking,Non-venomous animal contact,0,0.007
+High SDI,Smoking,Assault by other means,0,0.004
+High SDI,Smoking,"Forces of nature, conflict and terrorism, and state actor violence",0,0.005
+High SDI,Alcohol,All causes,445.5,0.047
+High SDI,Alcohol,Drug-susceptible tuberculosis,4.4,0.342
+High SDI,Alcohol,Multidrug-resistant tuberculosis without extensive drug resistance,0.2,0.391
+High SDI,Alcohol,Extensively drug-resistant tuberculosis,0.1,0.414
+High SDI,Alcohol,Lower respiratory infections,22.4,0.061
+High SDI,Alcohol,Lip and oral cavity cancer,15.9,0.538
+High SDI,Alcohol,Nasopharynx cancer,4,0.563
+High SDI,Alcohol,Other pharynx cancer,11,0.601
+High SDI,Alcohol,Oesophageal cancer,27.3,0.385
+High SDI,Alcohol,Colon and rectum cancer,50.9,0.163
+High SDI,Alcohol,Liver cancer due to alcohol use,27.8,1
+High SDI,Alcohol,Larynx cancer,6.6,0.376
+High SDI,Alcohol,Breast cancer,31.5,0.192
+High SDI,Alcohol,Ischaemic heart disease,-77.5,-0.045
+High SDI,Alcohol,Ischaemic stroke,11,0.026
+High SDI,Alcohol,Hemorrhagic stroke,58.4,0.2
+High SDI,Alcohol,Hypertensive heart disease,31.1,0.222
+High SDI,Alcohol,Alcoholic cardiomyopathy,15.7,1
+High SDI,Alcohol,Atrial fibrillation and flutter,13.2,0.132
+High SDI,Alcohol,Cirrhosis and other chronic liver diseases due to alcohol use,72,1
+High SDI,Alcohol,Pancreatitis,6.5,0.36
+High SDI,Alcohol,Epilepsy,4.5,0.355
+High SDI,Alcohol,Alcohol use disorders,35.9,1
+High SDI,Alcohol,Diabetes mellitus,-4.1,-0.019
+High SDI,Alcohol,Pedestrian road injuries,5,0.19
+High SDI,Alcohol,Cyclist road injuries,1.1,0.202
+High SDI,Alcohol,Motorcyclist road injuries,2.9,0.221
+High SDI,Alcohol,Motor vehicle road injuries,11.7,0.208
+High SDI,Alcohol,Other road injuries,0.1,0.2
+High SDI,Alcohol,Other transport injuries,1.8,0.217
+High SDI,Alcohol,Drowning,1.9,0.105
+High SDI,Alcohol,"Fire, heat, and hot substances",1.5,0.1
+High SDI,Alcohol,Poisonings,0.4,0.111
+High SDI,Alcohol,Unintentional firearm injuries,0.2,0.115
+High SDI,Alcohol,Other unintentional injuries,0.3,0.132
+High SDI,Alcohol,Self-harm by firearm,8.9,0.29
+High SDI,Alcohol,Self-harm by other specified means,34.9,0.263
+High SDI,Alcohol,Assault by firearm,3.4,0.238
+High SDI,Alcohol,Assault by sharp object,1.1,0.222
+High SDI,Alcohol,Assault by other means,1.4,0.184
+High-middle SDI,Smoking,All causes,1230,0.148
+High-middle SDI,Smoking,Drug-susceptible tuberculosis,4.6,0.144
+High-middle SDI,Smoking,Multidrug-resistant tuberculosis without extensive drug resistanc,1.1,0.174
+High-middle SDI,Smoking,Extensively drug-resistant tuberculosis,0.6,0.184
+High-middle SDI,Smoking,Lower respiratory infections,55.8,0.244
+High-middle SDI,Smoking,Lip and oral cavity cancer,12.1,0.533
+High-middle SDI,Smoking,Nasopharynx cancer,4.9,0.345
+High-middle SDI,Smoking,Oesophageal cancer,28.4,0.393
+High-middle SDI,Smoking,Stomach cancer,20.5,0.122
+High-middle SDI,Smoking,Colon and rectum cancer,10.4,0.057
+High-middle SDI,Smoking,Liver cancer due to hepatitis B,8.1,0.127
+High-middle SDI,Smoking,Liver cancer due to hepatitis C,3.1,0.162
+High-middle SDI,Smoking,Liver cancer due to alcohol use,3.1,0.136
+High-middle SDI,Smoking,Liver cancer due to other causes,4.5,0.142
+High-middle SDI,Smoking,Pancreatic cancer,15.4,0.182
+High-middle SDI,Smoking,Larynx cancer,16.9,0.756
+High-middle SDI,Smoking,"Tracheal, bronchus, and lung cancer",236.2,0.719
+High-middle SDI,Smoking,Breast cancer,2.3,0.024
+High-middle SDI,Smoking,Cervical cancer,1.8,0.054
+High-middle SDI,Smoking,Prostate cancer,3.7,0.053
+High-middle SDI,Smoking,Kidney cancer,5.7,0.19
+High-middle SDI,Smoking,Bladder cancer,11.7,0.302
+High-middle SDI,Smoking,Acute lymphoid leukaemia,0.7,0.079
+High-middle SDI,Smoking,Chronic lymphoid leukaemia,1,0.133
+High-middle SDI,Smoking,Acute myeloid leukaemia,1.6,0.105
+High-middle SDI,Smoking,Chronic myeloid leukaemia,0.4,0.114
+High-middle SDI,Smoking,Other leukaemia,1.9,0.086
+High-middle SDI,Smoking,Ischaemic heart disease,327.9,0.153
+High-middle SDI,Smoking,Ischaemic stroke,86,0.13
+High-middle SDI,Smoking,Hemorrhagic stroke,87.3,0.209
+High-middle SDI,Smoking,Hypertensive heart disease,17.6,0.115
+High-middle SDI,Smoking,Atrial fibrillation and flutter,2.6,0.057
+High-middle SDI,Smoking,Aortic aneurysm,5.8,0.178
+High-middle SDI,Smoking,Peripheral vascular disease,2,0.113
+High-middle SDI,Smoking,Other cardiovascular and circulatory diseases,12.4,0.134
+High-middle SDI,Smoking,Chronic obstructive pulmonary disease,198.2,0.555
+High-middle SDI,Smoking,Asthma,3,0.141
+High-middle SDI,Smoking,Other chronic respiratory diseases,0.8,0.151
+High-middle SDI,Smoking,Peptic ulcer disease,5.2,0.186
+High-middle SDI,Smoking,Gallbladder and biliary diseases,0.5,0.026
+High-middle SDI,Smoking,Alzheimer's disease and other dementias,15.8,0.035
+High-middle SDI,Smoking,Parkinson's disease,-5.1,-0.116
+High-middle SDI,Smoking,Multiple sclerosis,0.4,0.117
+High-middle SDI,Smoking,Diabetes mellitus,8.5,0.052
+High-middle SDI,Smoking,Rheumatoid arthritis,0.2,0.05
+High-middle SDI,Smoking,Low back pain,-,-
+High-middle SDI,Smoking,Cataract,-,-
+High-middle SDI,Smoking,Macular degeneration,-,-
+High-middle SDI,Smoking,Pedestrian road injuries,0.8,0.01
+High-middle SDI,Smoking,Cyclist road injuries,0.1,0.011
+High-middle SDI,Smoking,Motorcyclist road injuries,0.2,0.008
+High-middle SDI,Smoking,Motor vehicle road injuries,0.7,0.008
+High-middle SDI,Smoking,Other road injuries,0,0.009
+High-middle SDI,Smoking,Other transport injuries,0.2,0.013
+High-middle SDI,Smoking,Falls,2.3,0.027
+High-middle SDI,Smoking,Other exposure to mechanical forces,0.1,0.009
+High-middle SDI,Smoking,Non-venomous animal contact,0,0.008
+High-middle SDI,Smoking,Assault by other means,0.2,0.006
+High-middle SDI,Smoking,"Forces of nature, conflict and terrorism, and state actor violence",0,0.006
+High-middle SDI,Alcohol,All causes,697.7,0.084
+High-middle SDI,Alcohol,Drug-susceptible tuberculosis,13.4,0.421
+High-middle SDI,Alcohol,Multidrug-resistant tuberculosis without extensive drug resistance,3.7,0.569
+High-middle SDI,Alcohol,Extensively drug-resistant tuberculosis,2,0.61
+High-middle SDI,Alcohol,Lower respiratory infections,26.6,0.116
+High-middle SDI,Alcohol,Lip and oral cavity cancer,13.6,0.597
+High-middle SDI,Alcohol,Nasopharynx cancer,7.9,0.554
+High-middle SDI,Alcohol,Other pharynx cancer,8.6,0.652
+High-middle SDI,Alcohol,Oesophageal cancer,28.1,0.39
+High-middle SDI,Alcohol,Colon and rectum cancer,31.7,0.174
+High-middle SDI,Alcohol,Liver cancer due to alcohol use,24.7,1
+High-middle SDI,Alcohol,Larynx cancer,8.8,0.393
+High-middle SDI,Alcohol,Breast cancer,12.7,0.128
+High-middle SDI,Alcohol,Ischaemic heart disease,35.6,0.017
+High-middle SDI,Alcohol,Ischaemic stroke,50.3,0.076
+High-middle SDI,Alcohol,Hemorrhagic stroke,102.3,0.245
+High-middle SDI,Alcohol,Hypertensive heart disease,27.5,0.179
+High-middle SDI,Alcohol,Alcoholic cardiomyopathy,56.9,1
+High-middle SDI,Alcohol,Atrial fibrillation and flutter,5.6,0.123
+High-middle SDI,Alcohol,Cirrhosis and other chronic liver diseases due to alcohol use,60.5,1
+High-middle SDI,Alcohol,Pancreatitis,13.5,0.517
+High-middle SDI,Alcohol,Epilepsy,2.9,0.263
+High-middle SDI,Alcohol,Alcohol use disorders,55.3,1
+High-middle SDI,Alcohol,Diabetes mellitus,2.8,0.017
+High-middle SDI,Alcohol,Pedestrian road injuries,12.4,0.173
+High-middle SDI,Alcohol,Cyclist road injuries,2.2,0.193
+High-middle SDI,Alcohol,Motorcyclist road injuries,5,0.191
+High-middle SDI,Alcohol,Motor vehicle road injuries,12.6,0.158
+High-middle SDI,Alcohol,Other road injuries,0.3,0.186
+High-middle SDI,Alcohol,Other transport injuries,2.6,0.213
+High-middle SDI,Alcohol,Drowning,4.1,0.106
+High-middle SDI,Alcohol,"Fire, heat, and hot substances",2.3,0.106
+High-middle SDI,Alcohol,Poisonings,0.9,0.102
+High-middle SDI,Alcohol,Unintentional firearm injuries,0.3,0.091
+High-middle SDI,Alcohol,Other unintentional injuries,1.4,0.116
+High-middle SDI,Alcohol,Self-harm by firearm,2.1,0.316
+High-middle SDI,Alcohol,Self-harm by other specified means,42,0.336
+High-middle SDI,Alcohol,Assault by firearm,3.7,0.205
+High-middle SDI,Alcohol,Assault by sharp object,4.6,0.237
+High-middle SDI,Alcohol,Assault by other means,6.2,0.236
+Middle SDI,Smoking,All causes,2110.9,0.13
+Middle SDI,Smoking,Drug-susceptible tuberculosis,23.3,0.107
+Middle SDI,Smoking,Multidrug-resistant tuberculosis without extensive drug resistanc,1.6,0.093
+Middle SDI,Smoking,Extensively drug-resistant tuberculosis,0.3,0.097
+Middle SDI,Smoking,Lower respiratory infections,97,0.195
+Middle SDI,Smoking,Lip and oral cavity cancer,13.2,0.269
+Middle SDI,Smoking,Nasopharynx cancer,8.1,0.3
+Middle SDI,Smoking,Oesophageal cancer,57.6,0.291
+Middle SDI,Smoking,Stomach cancer,23.1,0.067
+Middle SDI,Smoking,Colon and rectum cancer,6.4,0.03
+Middle SDI,Smoking,Liver cancer due to hepatitis B,21.9,0.109
+Middle SDI,Smoking,Liver cancer due to hepatitis C,5.4,0.095
+Middle SDI,Smoking,Liver cancer due to alcohol use,4.8,0.078
+Middle SDI,Smoking,Liver cancer due to other causes,12.7,0.118
+Middle SDI,Smoking,Pancreatic cancer,9.2,0.096
+Middle SDI,Smoking,Larynx cancer,15.3,0.469
+Middle SDI,Smoking,"Tracheal, bronchus, and lung cancer",311.6,0.502
+Middle SDI,Smoking,Breast cancer,2.1,0.015
+Middle SDI,Smoking,Cervical cancer,2.6,0.032
+Middle SDI,Smoking,Prostate cancer,2.2,0.027
+Middle SDI,Smoking,Kidney cancer,2.2,0.084
+Middle SDI,Smoking,Bladder cancer,6.5,0.158
+Middle SDI,Smoking,Acute lymphoid leukaemia,0.7,0.035
+Middle SDI,Smoking,Chronic lymphoid leukaemia,0.3,0.055
+Middle SDI,Smoking,Acute myeloid leukaemia,0.7,0.043
+Middle SDI,Smoking,Chronic myeloid leukaemia,0.2,0.052
+Middle SDI,Smoking,Other leukaemia,2.2,0.049
+Middle SDI,Smoking,Ischaemic heart disease,493.4,0.162
+Middle SDI,Smoking,Ischaemic stroke,135.9,0.147
+Middle SDI,Smoking,Hemorrhagic stroke,256.8,0.197
+Middle SDI,Smoking,Hypertensive heart disease,47.8,0.133
+Middle SDI,Smoking,Atrial fibrillation and flutter,4.4,0.074
+Middle SDI,Smoking,Aortic aneurysm,5.2,0.161
+Middle SDI,Smoking,Peripheral vascular disease,0.6,0.111
+Middle SDI,Smoking,Other cardiovascular and circulatory diseases,15.3,0.132
+Middle SDI,Smoking,Chronic obstructive pulmonary disease,430.6,0.416
+Middle SDI,Smoking,Asthma,15.6,0.144
+Middle SDI,Smoking,Other chronic respiratory diseases,0.6,0.062
+Middle SDI,Smoking,Peptic ulcer disease,13.6,0.173
+Middle SDI,Smoking,Gallbladder and biliary diseases,0.9,0.029
+Middle SDI,Smoking,Alzheimer's disease and other dementias,29.7,0.045
+Middle SDI,Smoking,Parkinson's disease,-8.8,-0.16
+Middle SDI,Smoking,Multiple sclerosis,0.2,0.084
+Middle SDI,Smoking,Diabetes mellitus,26.9,0.05
+Middle SDI,Smoking,Rheumatoid arthritis,0.6,0.054
+Middle SDI,Smoking,Low back pain,-,-
+Middle SDI,Smoking,Cataract,-,-
+Middle SDI,Smoking,Macular degeneration,-,-
+Middle SDI,Smoking,Pedestrian road injuries,2.2,0.009
+Middle SDI,Smoking,Cyclist road injuries,0.3,0.009
+Middle SDI,Smoking,Motorcyclist road injuries,0.7,0.006
+Middle SDI,Smoking,Motor vehicle road injuries,1.2,0.007
+Middle SDI,Smoking,Other road injuries,0,0.008
+Middle SDI,Smoking,Other transport injuries,0.3,0.01
+Middle SDI,Smoking,Falls,5,0.025
+Middle SDI,Smoking,Other exposure to mechanical forces,0.3,0.008
+Middle SDI,Smoking,Non-venomous animal contact,0,0.006
+Middle SDI,Smoking,Assault by other means,0.1,0.003
+Middle SDI,Smoking,"Forces of nature, conflict and terrorism, and state actor violence",0,0.003
+Middle SDI,Alcohol,All causes,943.1,0.058
+Middle SDI,Alcohol,Drug-susceptible tuberculosis,50.6,0.232
+Middle SDI,Alcohol,Multidrug-resistant tuberculosis without extensive drug resistance,4.9,0.293
+Middle SDI,Alcohol,Extensively drug-resistant tuberculosis,0.9,0.306
+Middle SDI,Alcohol,Lower respiratory infections,29.3,0.059
+Middle SDI,Alcohol,Lip and oral cavity cancer,18.5,0.376
+Middle SDI,Alcohol,Nasopharynx cancer,11.5,0.427
+Middle SDI,Alcohol,Other pharynx cancer,7.8,0.308
+Middle SDI,Alcohol,Oesophageal cancer,60.9,0.308
+Middle SDI,Alcohol,Colon and rectum cancer,24.4,0.114
+Middle SDI,Alcohol,Liver cancer due to alcohol use,57,1
+Middle SDI,Alcohol,Larynx cancer,8.5,0.26
+Middle SDI,Alcohol,Breast cancer,7.7,0.054
+Middle SDI,Alcohol,Ischaemic heart disease,23.9,0.008
+Middle SDI,Alcohol,Ischaemic stroke,47.9,0.052
+Middle SDI,Alcohol,Hemorrhagic stroke,206.7,0.158
+Middle SDI,Alcohol,Hypertensive heart disease,51.2,0.143
+Middle SDI,Alcohol,Alcoholic cardiomyopathy,6.2,1
+Middle SDI,Alcohol,Atrial fibrillation and flutter,4.2,0.072
+Middle SDI,Alcohol,Cirrhosis and other chronic liver diseases due to alcohol use,93.4,1
+Middle SDI,Alcohol,Pancreatitis,8.6,0.295
+Middle SDI,Alcohol,Epilepsy,6.7,0.187
+Middle SDI,Alcohol,Alcohol use disorders,42.7,1
+Middle SDI,Alcohol,Diabetes mellitus,8.7,0.016
+Middle SDI,Alcohol,Pedestrian road injuries,33.7,0.145
+Middle SDI,Alcohol,Cyclist road injuries,4.4,0.15
+Middle SDI,Alcohol,Motorcyclist road injuries,15.5,0.153
+Middle SDI,Alcohol,Motor vehicle road injuries,19.2,0.118
+Middle SDI,Alcohol,Other road injuries,0.7,0.141
+Middle SDI,Alcohol,Other transport injuries,4.1,0.126
+Middle SDI,Alcohol,Drowning,5.1,0.05
+Middle SDI,Alcohol,"Fire, heat, and hot substances",1.4,0.048
+Middle SDI,Alcohol,Poisonings,1.1,0.06
+Middle SDI,Alcohol,Unintentional firearm injuries,0.4,0.084
+Middle SDI,Alcohol,Other unintentional injuries,3,0.084
+Middle SDI,Alcohol,Self-harm by firearm,2.2,0.222
+Middle SDI,Alcohol,Self-harm by other specified means,40.7,0.179
+Middle SDI,Alcohol,Assault by firearm,17,0.201
+Middle SDI,Alcohol,Assault by sharp object,7.3,0.164
+Middle SDI,Alcohol,Assault by other means,4.9,0.134
+Low-middle SDI,Smoking,All causes,1354.7,0.093
+Low-middle SDI,Smoking,Drug-susceptible tuberculosis,46,0.087
+Low-middle SDI,Smoking,Multidrug-resistant tuberculosis without extensive drug resistanc,4.5,0.084
+Low-middle SDI,Smoking,Extensively drug-resistant tuberculosis,0.4,0.101
+Low-middle SDI,Smoking,Lower respiratory infections,94.2,0.119
+Low-middle SDI,Smoking,Lip and oral cavity cancer,20.1,0.295
+Low-middle SDI,Smoking,Nasopharynx cancer,4.5,0.372
+Low-middle SDI,Smoking,Oesophageal cancer,15.7,0.292
+Low-middle SDI,Smoking,Stomach cancer,11.1,0.085
+Low-middle SDI,Smoking,Colon and rectum cancer,5.1,0.054
+Low-middle SDI,Smoking,Liver cancer due to hepatitis B,6.8,0.168
+Low-middle SDI,Smoking,Liver cancer due to hepatitis C,2.3,0.134
+Low-middle SDI,Smoking,Liver cancer due to alcohol use,1.9,0.158
+Low-middle SDI,Smoking,Liver cancer due to other causes,3.5,0.171
+Low-middle SDI,Smoking,Pancreatic cancer,4.8,0.117
+Low-middle SDI,Smoking,Larynx cancer,16.5,0.5
+Low-middle SDI,Smoking,"Tracheal, bronchus, and lung cancer",126.9,0.811
+Low-middle SDI,Smoking,Breast cancer,1.9,0.017
+Low-middle SDI,Smoking,Cervical cancer,2.4,0.038
+Low-middle SDI,Smoking,Prostate cancer,1.1,0.021
+Low-middle SDI,Smoking,Kidney cancer,1,0.098
+Low-middle SDI,Smoking,Bladder cancer,4,0.18
+Low-middle SDI,Smoking,Acute lymphoid leukaemia,0.5,0.044
+Low-middle SDI,Smoking,Chronic lymphoid leukaemia,0.1,0.041
+Low-middle SDI,Smoking,Acute myeloid leukaemia,0.6,0.047
+Low-middle SDI,Smoking,Chronic myeloid leukaemia,0.3,0.052
+Low-middle SDI,Smoking,Other leukaemia,0.9,0.052
+Low-middle SDI,Smoking,Ischaemic heart disease,359.7,0.173
+Low-middle SDI,Smoking,Ischaemic stroke,85.9,0.156
+Low-middle SDI,Smoking,Hemorrhagic stroke,135.5,0.215
+Low-middle SDI,Smoking,Hypertensive heart disease,24.3,0.134
+Low-middle SDI,Smoking,Atrial fibrillation and flutter,2.4,0.085
+Low-middle SDI,Smoking,Aortic aneurysm,3.6,0.175
+Low-middle SDI,Smoking,Peripheral vascular disease,0.3,0.118
+Low-middle SDI,Smoking,Other cardiovascular and circulatory diseases,8,0.122
+Low-middle SDI,Smoking,Chronic obstructive pulmonary disease,274.1,0.279
+Low-middle SDI,Smoking,Asthma,32.5,0.146
+Low-middle SDI,Smoking,Other chronic respiratory diseases,0.9,0.067
+Low-middle SDI,Smoking,Peptic ulcer disease,12.4,0.15
+Low-middle SDI,Smoking,Gallbladder and biliary diseases,0.4,0.023
+Low-middle SDI,Smoking,Alzheimer's disease and other dementias,12.6,0.051
+Low-middle SDI,Smoking,Parkinson's disease,-3.6,-0.152
+Low-middle SDI,Smoking,Multiple sclerosis,0.2,0.076
+Low-middle SDI,Smoking,Diabetes mellitus,20.3,0.049
+Low-middle SDI,Smoking,Rheumatoid arthritis,0.2,0.042
+Low-middle SDI,Smoking,Low back pain,-,-
+Low-middle SDI,Smoking,Cataract,-,-
+Low-middle SDI,Smoking,Macular degeneration,-,-
+Low-middle SDI,Smoking,Pedestrian road injuries,1,0.007
+Low-middle SDI,Smoking,Cyclist road injuries,0.2,0.007
+Low-middle SDI,Smoking,Motorcyclist road injuries,0.4,0.005
+Low-middle SDI,Smoking,Motor vehicle road injuries,0.8,0.007
+Low-middle SDI,Smoking,Other road injuries,0,0.009
+Low-middle SDI,Smoking,Other transport injuries,0.3,0.009
+Low-middle SDI,Smoking,Falls,4.9,0.023
+Low-middle SDI,Smoking,Other exposure to mechanical forces,0.1,0.005
+Low-middle SDI,Smoking,Non-venomous animal contact,0,0.004
+Low-middle SDI,Smoking,Assault by other means,0.1,0.002
+Low-middle SDI,Smoking,"Forces of nature, conflict and terrorism, and state actor violence",0,0.003
+Low-middle SDI,Alcohol,All causes,527.7,0.036
+Low-middle SDI,Alcohol,Drug-susceptible tuberculosis,104.9,0.199
+Low-middle SDI,Alcohol,Multidrug-resistant tuberculosis without extensive drug resistance,10.8,0.201
+Low-middle SDI,Alcohol,Extensively drug-resistant tuberculosis,0.9,0.236
+Low-middle SDI,Alcohol,Lower respiratory infections,23.5,0.03
+Low-middle SDI,Alcohol,Lip and oral cavity cancer,16.2,0.238
+Low-middle SDI,Alcohol,Nasopharynx cancer,3.9,0.321
+Low-middle SDI,Alcohol,Other pharynx cancer,17.6,0.304
+Low-middle SDI,Alcohol,Oesophageal cancer,9.9,0.184
+Low-middle SDI,Alcohol,Colon and rectum cancer,7.6,0.081
+Low-middle SDI,Alcohol,Liver cancer due to alcohol use,14.3,1
+Low-middle SDI,Alcohol,Larynx cancer,5,0.151
+Low-middle SDI,Alcohol,Breast cancer,4.5,0.042
+Low-middle SDI,Alcohol,Ischaemic heart disease,0.3,0
+Low-middle SDI,Alcohol,Ischaemic stroke,13.6,0.025
+Low-middle SDI,Alcohol,Hemorrhagic stroke,70.9,0.112
+Low-middle SDI,Alcohol,Hypertensive heart disease,15.4,0.085
+Low-middle SDI,Alcohol,Alcoholic cardiomyopathy,3.5,1
+Low-middle SDI,Alcohol,Atrial fibrillation and flutter,1.7,0.058
+Low-middle SDI,Alcohol,Cirrhosis and other chronic liver diseases due to alcohol use,81.8,1
+Low-middle SDI,Alcohol,Pancreatitis,6.7,0.213
+Low-middle SDI,Alcohol,Epilepsy,5.5,0.112
+Low-middle SDI,Alcohol,Alcohol use disorders,32.4,1
+Low-middle SDI,Alcohol,Diabetes mellitus,3.3,0.008
+Low-middle SDI,Alcohol,Pedestrian road injuries,11.1,0.084
+Low-middle SDI,Alcohol,Cyclist road injuries,2,0.082
+Low-middle SDI,Alcohol,Motorcyclist road injuries,8,0.082
+Low-middle SDI,Alcohol,Motor vehicle road injuries,11.8,0.093
+Low-middle SDI,Alcohol,Other road injuries,0.4,0.083
+Low-middle SDI,Alcohol,Other transport injuries,2.8,0.079
+Low-middle SDI,Alcohol,Drowning,2.9,0.029
+Low-middle SDI,Alcohol,"Fire, heat, and hot substances",1,0.024
+Low-middle SDI,Alcohol,Poisonings,0.6,0.041
+Low-middle SDI,Alcohol,Unintentional firearm injuries,0.3,0.047
+Low-middle SDI,Alcohol,Other unintentional injuries,1.7,0.045
+Low-middle SDI,Alcohol,Self-harm by firearm,1.6,0.106
+Low-middle SDI,Alcohol,Self-harm by other specified means,21.3,0.097
+Low-middle SDI,Alcohol,Assault by firearm,3.3,0.103
+Low-middle SDI,Alcohol,Assault by sharp object,2.3,0.111
+Low-middle SDI,Alcohol,Assault by other means,2.5,0.061
+Low SDI,Smoking,All causes,217.8,0.036
+Low SDI,Smoking,Drug-susceptible tuberculosis,15.3,0.049
+Low SDI,Smoking,Multidrug-resistant tuberculosis without extensive drug resistanc,0.9,0.049
+Low SDI,Smoking,Extensively drug-resistant tuberculosis,0,0.053
+Low SDI,Smoking,Lower respiratory infections,33.1,0.068
+Low SDI,Smoking,Lip and oral cavity cancer,1.2,0.174
+Low SDI,Smoking,Nasopharynx cancer,0.6,0.182
+Low SDI,Smoking,Oesophageal cancer,3.3,0.164
+Low SDI,Smoking,Stomach cancer,1.4,0.049
+Low SDI,Smoking,Colon and rectum cancer,0.5,0.018
+Low SDI,Smoking,Liver cancer due to hepatitis B,1.2,0.073
+Low SDI,Smoking,Liver cancer due to hepatitis C,0.4,0.049
+Low SDI,Smoking,Liver cancer due to alcohol use,0.3,0.071
+Low SDI,Smoking,Liver cancer due to other causes,0.6,0.067
+Low SDI,Smoking,Pancreatic cancer,0.7,0.059
+Low SDI,Smoking,Larynx cancer,2.2,0.396
+Low SDI,Smoking,"Tracheal, bronchus, and lung cancer",12.1,0.444
+Low SDI,Smoking,Breast cancer,0.4,0.012
+Low SDI,Smoking,Cervical cancer,0.7,0.016
+Low SDI,Smoking,Prostate cancer,0.4,0.012
+Low SDI,Smoking,Kidney cancer,0.1,0.045
+Low SDI,Smoking,Bladder cancer,0.7,0.085
+Low SDI,Smoking,Acute lymphoid leukaemia,0,0.015
+Low SDI,Smoking,Chronic lymphoid leukaemia,0,0.026
+Low SDI,Smoking,Acute myeloid leukaemia,0.1,0.026
+Low SDI,Smoking,Chronic myeloid leukaemia,0.1,0.034
+Low SDI,Smoking,Other leukaemia,0.2,0.033
+Low SDI,Smoking,Ischaemic heart disease,51.4,0.111
+Low SDI,Smoking,Ischaemic stroke,9.8,0.082
+Low SDI,Smoking,Hemorrhagic stroke,21.2,0.111
+Low SDI,Smoking,Hypertensive heart disease,4.6,0.077
+Low SDI,Smoking,Atrial fibrillation and flutter,0.3,0.05
+Low SDI,Smoking,Aortic aneurysm,0.8,0.128
+Low SDI,Smoking,Peripheral vascular disease,0,0.088
+Low SDI,Smoking,Other cardiovascular and circulatory diseases,6.5,0.081
+Low SDI,Smoking,Chronic obstructive pulmonary disease,34.1,0.252
+Low SDI,Smoking,Asthma,4,0.077
+Low SDI,Smoking,Other chronic respiratory diseases,0.4,0.067
+Low SDI,Smoking,Peptic ulcer disease,2.1,0.072
+Low SDI,Smoking,Gallbladder and biliary diseases,0.1,0.013
+Low SDI,Smoking,Alzheimer's disease and other dementias,1.2,0.022
+Low SDI,Smoking,Parkinson's disease,-0.3,-0.062
+Low SDI,Smoking,Multiple sclerosis,0,0.049
+Low SDI,Smoking,Diabetes mellitus,3.7,0.032
+Low SDI,Smoking,Rheumatoid arthritis,0,0.022
+Low SDI,Smoking,Low back pain,-,-
+Low SDI,Smoking,Cataract,-,-
+Low SDI,Smoking,Macular degeneration,-,-
+Low SDI,Smoking,Pedestrian road injuries,0.1,0.003
+Low SDI,Smoking,Cyclist road injuries,0,0.003
+Low SDI,Smoking,Motorcyclist road injuries,0,0.002
+Low SDI,Smoking,Motor vehicle road injuries,0.2,0.003
+Low SDI,Smoking,Other road injuries,0,0.003
+Low SDI,Smoking,Other transport injuries,0,0.004
+Low SDI,Smoking,Falls,0.6,0.012
+Low SDI,Smoking,Other exposure to mechanical forces,0,0.002
+Low SDI,Smoking,Non-venomous animal contact,0,0.002
+Low SDI,Smoking,Assault by other means,0,0.001
+Low SDI,Smoking,"Forces of nature, conflict and terrorism, and state actor violence",0,0.001
+Low SDI,Alcohol,All causes,200.7,0.033
+Low SDI,Alcohol,Drug-susceptible tuberculosis,79.8,0.253
+Low SDI,Alcohol,Multidrug-resistant tuberculosis without extensive drug resistance,3.8,0.204
+Low SDI,Alcohol,Extensively drug-resistant tuberculosis,0.1,0.15
+Low SDI,Alcohol,Lower respiratory infections,11.9,0.024
+Low SDI,Alcohol,Lip and oral cavity cancer,2.1,0.302
+Low SDI,Alcohol,Nasopharynx cancer,1,0.329
+Low SDI,Alcohol,Other pharynx cancer,1.3,0.335
+Low SDI,Alcohol,Oesophageal cancer,4.4,0.215
+Low SDI,Alcohol,Colon and rectum cancer,2.2,0.079
+Low SDI,Alcohol,Liver cancer due to alcohol use,5.3,1
+Low SDI,Alcohol,Larynx cancer,0.9,0.174
+Low SDI,Alcohol,Breast cancer,2.8,0.086
+Low SDI,Alcohol,Ischaemic heart disease,-6.6,-0.014
+Low SDI,Alcohol,Ischaemic stroke,1.4,0.011
+Low SDI,Alcohol,Hemorrhagic stroke,19.4,0.102
+Low SDI,Alcohol,Hypertensive heart disease,6.6,0.111
+Low SDI,Alcohol,Alcoholic cardiomyopathy,1,1
+Low SDI,Alcohol,Atrial fibrillation and flutter,0.4,0.058
+Low SDI,Alcohol,Cirrhosis and other chronic liver diseases due to alcohol use,27,1
+Low SDI,Alcohol,Pancreatitis,1.9,0.274
+Low SDI,Alcohol,Epilepsy,2.4,0.138
+Low SDI,Alcohol,Alcohol use disorders,7.5,1
+Low SDI,Alcohol,Diabetes mellitus,-0.7,-0.006
+Low SDI,Alcohol,Pedestrian road injuries,4,0.077
+Low SDI,Alcohol,Cyclist road injuries,0.4,0.099
+Low SDI,Alcohol,Motorcyclist road injuries,1.1,0.086
+Low SDI,Alcohol,Motor vehicle road injuries,4.7,0.075
+Low SDI,Alcohol,Other road injuries,0.1,0.079
+Low SDI,Alcohol,Other transport injuries,0.6,0.086
+Low SDI,Alcohol,Drowning,1.2,0.028
+Low SDI,Alcohol,"Fire, heat, and hot substances",0.9,0.033
+Low SDI,Alcohol,Poisonings,0.4,0.032
+Low SDI,Alcohol,Unintentional firearm injuries,0.2,0.044
+Low SDI,Alcohol,Other unintentional injuries,0.4,0.038
+Low SDI,Alcohol,Self-harm by firearm,0.7,0.142
+Low SDI,Alcohol,Self-harm by other specified means,6.2,0.14
+Low SDI,Alcohol,Assault by firearm,1.1,0.083
+Low SDI,Alcohol,Assault by sharp object,0.6,0.084
+Low SDI,Alcohol,Assault by other means,2.1,0.095
