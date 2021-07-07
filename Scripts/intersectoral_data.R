@@ -240,6 +240,18 @@ tfa$NCD.cause.grouping<-"Ischaemic heart disease"
 salt<-left_join(tlocs, int%>%select(c(iso3, Mortality.reduction, Outcome, Risk, NCD4, self_harm, NCD.cause.grouping)), by="iso3")%>%select(-c(tanda))
 tfa<-left_join(tlocs, tfa%>%select(c(iso3, Mortality.reduction, Outcome, Risk, NCD4, self_harm, NCD.cause.grouping)), by="iso3")%>%select(-c(tanda))
 
+salt2<-salt
+salt2$Outcome<-"Ischemic heart disease"
+salt2$NCD.cause.grouping<-"Ischaemic heart disease"
+salt3<-salt
+salt3$Outcome<-"Ischemic stroke"
+salt3$NCD.cause.grouping<-"Ischaemic stroke"
+salt4<-salt
+salt4$Outcome<-"Intracerebral hemorrhage"
+salt4$NCD.cause.grouping<-"Haemorrhagic stroke"
+
+salt<-bind_rows(salt, salt2, salt3, salt4)
+
 write.csv(salt, "new_inputs/salt_policy_effects.csv", row.names = F)
 write.csv(tfa, "new_inputs/tfa_policy_effects.csv", row.names = F)
 
