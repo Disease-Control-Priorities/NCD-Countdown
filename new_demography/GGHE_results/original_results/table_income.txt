@@ -1,0 +1,11 @@
+"Class","mean_ratio","median_ratio","p25","p75","max","Region"
+"LIC",28.14,21.03,12.87,31.09,118.29,NA
+"LMIC",11.48,7.06,4.15,13.52,76.56,NA
+"UMIC",10.9,4.98,1.96,9.35,180.88,NA
+NA,4.87,5.39,1.39,7.96,12.88,"Central and Eastern Europe"
+NA,10.44,7.36,4.13,11.79,71.85,"Central Asia, Middle East and North Africa"
+NA,9.08,6.84,4.56,10.06,31.7,"East and South East Asia"
+NA,15.82,3.6,2.56,10,180.88,"Latin America and Caribbean"
+NA,9.15,5.46,4.32,8.95,29.09,"Oceania"
+NA,25.21,21.48,17.49,28.42,75.37,"South Asia"
+NA,20.03,14.1,6.15,26.4,118.29,"Sub-Saharan Africa"

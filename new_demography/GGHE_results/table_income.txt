@@ -1,0 +1,16 @@
+"Class","mean_ratio","median_ratio","p25","p75","max","country","year","type","count"
+"LIC",17.28,9.12,2.54,21.95,219.39,NA,NA,NA,NA
+"LMIC",25.08,5.3,1.47,19.23,614.77,NA,NA,NA,NA
+"UMIC",15.67,5.77,0,20.15,227.63,NA,NA,NA,NA
+NA,NA,NA,NA,NA,NA,"Afghanistan",1999,"cases",745
+NA,NA,NA,NA,NA,NA,"Afghanistan",1999,"population",19987071
+NA,NA,NA,NA,NA,NA,"Afghanistan",2000,"cases",2666
+NA,NA,NA,NA,NA,NA,"Afghanistan",2000,"population",20595360
+NA,NA,NA,NA,NA,NA,"Brazil",1999,"cases",37737
+NA,NA,NA,NA,NA,NA,"Brazil",1999,"population",172006362
+NA,NA,NA,NA,NA,NA,"Brazil",2000,"cases",80488
+NA,NA,NA,NA,NA,NA,"Brazil",2000,"population",174504898
+NA,NA,NA,NA,NA,NA,"China",1999,"cases",212258
+NA,NA,NA,NA,NA,NA,"China",1999,"population",1272915272
+NA,NA,NA,NA,NA,NA,"China",2000,"cases",213766
+NA,NA,NA,NA,NA,NA,"China",2000,"population",1280428583

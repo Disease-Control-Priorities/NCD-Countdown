@@ -1,0 +1,22 @@
+"","Code","Median.rank","Prop.included","Intervention"
+"1",2.5,1,1,"Aspirin for suspected ACS"
+"2",1.2,2,0.788617886178862,"Pulmonary rehabilitation"
+"3",2.7,3,0.780487804878049,"Heart failure chronic treatment"
+"4",4.3,4,0.723577235772358,"Treatment of early-stage breast cancer"
+"5",2.4,5,0.75609756097561,"CVD primary prevention"
+"6",3.2,6,0.747967479674797,"Heart failure acute treatment"
+"7",3.1,7,0.682926829268293,"Medical management of ACS"
+"8",2.6,8,0.59349593495935,"CVD secondary prevention"
+"9",3.3,9,0.536585365853659,"Early-stage cervical cancer screening/treatment"
+"10",4.4,10,0.528455284552846,"Treatment of early-stage colorectal cancer"
+"11",3.4,11,0.536585365853659,"Asthma/COPD acute treatment"
+"12",4.1,12,0.349593495934959,"PCI for ACS"
+"13",4.2,13,0.48780487804878,"Management of acute ventilatory failure"
+"14",2.14,14,0.48780487804878,"Asthma/COPD chronic treatment"
+"15",2.3,15,0.504065040650406,"Diabetes screening/treatment"
+"16",5.1,18.5,0,NA
+"17",5.2,18.5,0,NA
+"18",5.3,18.5,0,NA
+"19",5.4,18.5,0,NA
+"20",5.5,18.5,0,NA
+"21",5.6,18.5,0,NA
