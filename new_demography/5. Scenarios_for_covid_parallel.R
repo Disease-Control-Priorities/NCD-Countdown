@@ -17,7 +17,7 @@ library(iterators)
 
 library(doParallel)
 
-load("../new_inputs/PreppedData0803.Rda")
+load("../new_inputs/PreppedData0819.Rda")
 source("utils/demmod_icer_rank.R")
 
 ###############################################################################################################################
@@ -195,7 +195,7 @@ q30.sum    <- apply(r.sum, 2:4, get.q30) # Array col 1 is covid scale, col 2 is 
 ###############################################################################################################################
 
 save(goal.q30.out, ncd.deaths.out, summary, all.q30.out, adj.D.P, q30.sum, 
-     file = "output/goal.q30.covid_0819.Rda")
+     file = "output/goal.q30.covid_0830.Rda")
 
 ###############################################################################################################################
 

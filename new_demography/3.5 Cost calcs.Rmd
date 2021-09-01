@@ -41,7 +41,7 @@ nontradable_conversion <- function(unit_cost,tradable_ratio, currency, cpi_adjus
 
 # Install the necessary input files
 ```{r}
-load("output/Optim.Out0819.Rda")
+load("output/Optim.Out0830.Rda")
 #intersectoral only
 #regions<-read.csv("../new_inputs/Country_groupings.csv")%>%
 #    select(c(Country, NCD_region))%>%rename(location_name=Country)
@@ -63,11 +63,20 @@ uc <- uc %>%filter(Original.Currency != "NA")
 
 # Necessary files
 # Exchange rate
-exchange <- read_xlsx("../new_inputs/Exchange_rate.xlsx")
+exchange <- read_xlsx("../new_inputs/Exchange_rate.xlsx", na = "..")
+exchange<-exchange[,c(1:60)]
+ex2<-read_xlsx("../new_inputs/Exchange_rate_2020.xlsx", skip=3)
+ex2<-ex2[,c(1,61,62)]
+
+exchange<-left_join(exchange, ex2, by="Country")
+exchange <- exchange%>%gather(year, value, -Country)%>%group_by(Country)%>%fill(value)%>%spread(year, value)
+
 
 # Regional inflation
-regional_inflation <- read_xls("../new_inputs/Regional_inflation_20200212.xls", sheet = "Data")
-regional_inflation[,c(5:64)] <- (regional_inflation[,c(5:64)]/100)+1
+#regional_inflation <- read_xls("../new_inputs/Regional_inflation_20200212.xls", sheet = "Data")
+regional_inflation <- read_xls("../new_inputs/Regional_inflation_2020.xls", sheet = "Data", skip=3)
+#regional_inflation[,c(5:64)] <- (regional_inflation[,c(5:64)]/100)+1
+regional_inflation[,c(5:65)] <- (regional_inflation[,c(5:65)]/100)+1
 
 # COUntry grouping
 class <- read.csv("../new_inputs/Country_groupings.csv")
@@ -88,14 +97,29 @@ country_list <- class %>%
 
 # CPI adjusted
 cpi <- read.csv("../new_inputs/CPI_WB_2018_added2.csv", stringsAsFactors=F)
-#used to be CPI_WB_2018_added2.csv but can't find that file
+cpi<-cpi[,-c(66:71)]
+#add 2020 data
+cpi2<-read.csv("../new_inputs/CPI_2020.csv", stringsAsFactors=F)
+names(cpi2)[1]<-"Country"
+cpi2<-cpi2[,c(1,65)]
+cpi<-left_join(cpi, cpi2, by="Country")
+
+cpi <- cpi[,c(3,6:66)]%>%gather(year, value, -Country)%>%group_by(Country)%>%fill(value)%>%spread(year, value)
+
+#also add France
+#france<-read.csv("../new_inputs/CPI_2020.csv", stringsAsFactors=F)%>%filter(Country.Code=="FRA")
+#names(france)[1]<-"Country"
+#cpi<-bind_rows(cpi, france[,-c(2,3,4)])
 
 # GNI
 GNI <- read.csv("../new_inputs/GNI_WB_USD_2017_re2.csv", stringsAsFactors=F)
-#used to be GNI_WB_USD_2017_re2.csv, but can't find file
-#GNI[GNI$Country == "Syria",]
+GNI<-GNI[,-c(1,4,5,6,66,67,68)]
+GNI2 <- read.csv("../new_inputs/GNI_2020.csv", stringsAsFactors=F)
+GNI2<-GNI2[,c(1,64,65)]
+names(GNI2)[1]<-"Country"
 
-# population in need (Output from Will)
+GNI<-left_join(GNI, GNI2, by="Country")
+GNI <- GNI%>%gather(year, value, -Country, -Country.Code)%>%group_by(Country.Code)%>%fill(value)%>%spread(year, value)
 #load("../new_demography/output/icer_rank_output.Rda")
 
 ```
@@ -132,7 +156,7 @@ benefits.opt <- merge(y = dalys.opt, x = class, by.x = "Country", by.y = "locati
 ```{r}
 #Setting
 #tradable_ratio <- 0.3
-UC_Years <- 2017  # The output year
+UC_Years <- 2020  # The output year
 # ancillary_HF_cost <- 0.5 # possible change
 # above_HF <- 0.17 # possible change
 ```
@@ -437,28 +461,29 @@ final_all_ICER <- rbind(final_all_ICER, country.all2)
 ```
 
 ```{r}
-file.name <- paste0("output/Optimal/All_TC_2030_0819",".csv")
+file.name <- paste0("output/Optimal/All_TC_2030_0830",".csv")
 write.csv(final_all, file.name)
 
-file.name <- paste0("output/Optimal/All_Intervention_2030_0819",".csv")
+file.name <- paste0("output/Optimal/All_Intervention_2030_0830",".csv")
 write.csv(final_all_intervention, file.name)
 
-file.name <- paste0("output/Optimal/All_ICER_2030_0819",".csv")
+file.name <- paste0("output/Optimal/All_ICER_2030_0830",".csv")
 write.csv(final_all_ICER, file.name)
 ```
 
 
 ```{r Table 3 generate}
 #all<- final_all_intervention
-#load("output/Optim.Out_0819.Rda")
-file.name <- paste0("output/Optimal/All_Intervention_2030_0819",".csv")
+load("output/Optim.Out0830.Rda")
+file.name <- paste0("output/Optimal/All_Intervention_2030_0830",".csv")
 all <- read.csv(file.name)
 
-##add intersectoral costs##
-int_cost<-read.csv("output/costs/All_total_cost_2030_intervention_0819.csv", stringsAsFactors = F)%>%select(-c(X))%>%
+## add intersectoral costs##
+int_cost<-read.csv("output/costs/All_total_cost_2030_intervention_0830.csv", stringsAsFactors = F)%>%select(-c(X))%>%
   mutate(unique_id = paste0("C",unique_id))%>%filter(substr(unique_id,1,2)=="C5")
 
 all<-bind_rows(all, int_cost)
+##
 
 all_int_base <- all %>% 
   filter(senario == "Baseline") %>% 
@@ -495,7 +520,7 @@ table3[,2:4] <- round(table3[,2:4] / 1000000000,2)
 
 table3 <- table3[c(4,1,2,7,6,3,5,8),]
 
-table3[,2:4] <- round(table3[,2:4] / 7,2) #annual
+table3[,2:4] <- round(table3[,2:4] / 8,2) #annual
 
 #add per capita column 4
 #load("../new_inputs/PreppedData.Rda")
@@ -518,7 +543,7 @@ table3$Nx[table3$Region=="All"]<-allpop
 table3$increment_pc<-1e9*table3$increment/table3$Nx
 
 #add net economic benefit per capita column 5
-dth_avert<-left_join(dadt.all.opt, regions%>%rename(location_name=Country), by="location_name")%>%group_by(NCD_region)%>%summarise(DA = sum(Deaths.Avert))
+dth_avert<-left_join(dadt.all.opt, regions%>%rename(location_name=Country), by="location_name")%>%group_by(NCD_region)%>%filter(byear==2015)%>%summarise(DA = sum(Deaths.Avert))
 
 dth_avert<-bind_rows(dth_avert, data.frame(NCD_region="All", DA=sum(dth_avert$DA)))%>%rename(Region = NCD_region)
 
@@ -541,7 +566,7 @@ elasticity<-1.1
 vsl<-left_join(vsl, dth_avert, by="Region")
 
 vsl<-left_join(vsl, table3%>%select(c("Region", "increment")), by="Region")
-vsl$increment<-vsl$increment*7
+vsl$increment<-vsl$increment*8
 
 #vsl$econ<-vsl$DA*vsl$VSL2
 #vsl$net<-vsl$econ-vsl$increment*1e9
@@ -551,21 +576,30 @@ vsl$increment<-vsl$increment*7
 vsl$VSL<-(20*us.gni.pc)*(vsl$GNIpc/us.gni.pc)^elasticity
 vsl$econ.bns<-(vsl$VSL*vsl$DA)/1e9
 vsl$net.econ.pc<-(((vsl$econ.bns-vsl$increment)*1e9)/vsl$pop_2017_sum)
+vsl$net.econ.total<-(((vsl$econ.bns-vsl$increment)*1e9))
 
-table3<-left_join(table3%>%select(-c(Nx)), vsl%>%select(c(Region, DA, net.econ.pc)), by="Region")
+table3<-left_join(table3%>%select(-c(Nx)), vsl%>%select(c(Region, DA, net.econ.pc, net.econ.total)), by="Region")
 table3$DA<-table3$DA/1000
 #table3[,5:7]<-round(table3[,5:7])
 
 #add benefit cost ratio
-table3$benefit.cost.ratio<-round(table3$net.econ.pc/(table3$increment_pc*7),2)
+table3$benefit.cost.ratio<-round(table3$net.econ.pc/(table3$increment_pc*8),2)
 
-write.csv(table3, "Figures/Table3_0819.csv")
+table3$total_cost_adjust_8year<-table3$total_cost_adjust*8
+table3$total_cost_base_8year<-table3$total_cost_base*8
+table3$increment_8year<-table3$increment*8
+table3$cost.per.DA<-(1e9*table3$increment_8year)/(table3$DA*1000)
+
+write.csv(table3, "Figures/Table3_0830.csv")
 
 vsl<-vsl%>%select(c(Region, increment, DA, VSL, econ.bns, net.econ.pc))
 vsl$DA<-vsl$DA/1000
 vsl$VSL<-vsl$VSL/1000
 
-write.csv(vsl, "Figures/TableA8.csv")
+vsl$benefit.cost.ratio<-vsl$econ.bns/vsl$increment
+vsl<-vsl[c(4,1,2,7,6,3,5,8),]
+
+write.csv(vsl, "Figures/Appendix-tableA6_0830.csv")
 ```
 
 ## Table 2 from Will
@@ -575,7 +609,7 @@ write.csv(vsl, "Figures/TableA8.csv")
 pacman::p_load(data.table, dplyr, tidyr, progress, pspline, MortalityLaws) 
 # Appendix Table
 
-load("output/Optim.Out0819.Rda")
+load("output/Optim.Out0830.Rda")
 regs = c("Latin America and Caribbean","Central and Eastern Europe",
          "Central Asia, Middle East and North Africa","Sub-Saharan Africa",
          "South Asia","East and South East Asia","Oceania","All low- and middle-income countries")
@@ -613,19 +647,48 @@ da <- da %>% mutate(NCD_region = "All low- and middle-income countries") %>%
   mutate(Deaths.Avert = 10*round(ceiling(Deaths.Avert/10000))) %>%
   spread(age_group, Deaths.Avert)
 
-save(q30.summary1, da, file = "output/Optim.Out.Tables0819.Rda")
+save(q30.summary1, da, file = "output/Optim.Out.Tables0830.Rda")
 
-write.csv(q30.summary1, "Figures/Table2_0819.csv")
+inters<-q30.reaches%>%filter(byear==2015)%>%
+  rename(reached = n.inters)%>%select(c(reached, location_name, NCD_region))
+
+table2<-left_join(q30.code, inters, by="location_name")%>%group_by(location_name)%>%filter(n.inters == reached)
+table2$base_diff<-100*(table2$`40q30_15`-table2$`40q30_2030_base`)/table2$`40q30_15`
+table2$adj_diff<-100*(table2$`40q30_15`-table2$`40q30_2030_adj`)/table2$`40q30_15`
+table2$added.reduction<-table2$adj_diff-table2$base_diff
+table2$base.reach<-0
+table2$base.reach[table2$`40q30_2030_base`<=table2$Target_15]<-1
+
+table2$adj.reach<-0
+table2$adj.reach[table2$`40q30_2030_adj`<=table2$Target_15]<-1
+
+table2$reach80<-0
+table2$reach80[table2$adj_diff>=80*(1/3)]<-1
+
+print_table2<-table2%>%group_by(NCD_region)%>%summarise(base.diff.med = median(base_diff), 
+                                                  base.diff.iqr25=quantile(base_diff, 0.25),
+                                                  base.diff.iqr75=quantile(base_diff, 0.75),
+                                                  base.reach.prop = 100*sum(base.reach)/n(), 
+                                                  med.int = median(n.inters), 
+                                                  adj.diff.med=median(adj_diff), 
+                                                  adj.diff.iqr25=quantile(adj_diff, 0.25),
+                                                  adj.diff.iqr75=quantile(adj_diff, 0.75),
+                                                  adj.reach.prop = 100*sum(adj.reach)/n(), 
+                                                  reach.80.prop = 100*sum(reach80)/n()
+                                                  )
+
+
+write.csv(print_table2, "Figures/Table2_0830.csv")
 ```
 
 
 # Data for Adrian
 ```{r}
-file.name <- paste0("output/Optimal/All_Intervention_2030_0819",".csv")
+file.name <- paste0("output/Optimal/All_Intervention_2030_0830",".csv")
 all <- read.csv(file.name)
 
 ##add intersectoral costs##
-int_cost<-read.csv("output/costs/All_total_cost_2030_intervention_0819.csv", stringsAsFactors = F)%>%select(-c(X))%>%
+int_cost<-read.csv("output/costs/All_total_cost_2030_intervention_0830.csv", stringsAsFactors = F)%>%select(-c(X))%>%
   mutate(unique_id = paste0("C",unique_id))%>%filter(substr(unique_id,1,2)=="C5")
 
 all<-bind_rows(all, int_cost)
@@ -645,16 +708,16 @@ sum_country <- all %>%
 
 sum_country2 <- merge(country_list, sum_country, by = "Country")
 
-write.csv(sum_country2, "Figures/Total_cost_NCD_forAdrian0819.csv")
+write.csv(sum_country2, "Figures/Total_cost_NCD_forAdrian0830.csv")
 ```
 
-# Appendix Table A3
+# Appendix Table A4
 ```{r additional table}
 
-rank<-read.csv("output/All_ICER_2030_0819.csv", stringsAsFactors = F)
+rank<-read.csv("output/All_ICER_2030_0830.csv", stringsAsFactors = F)
 rank$included<-NA
   
-load("output/Optim.Out0819.Rda")
+load("output/Optim.Out0830.Rda")
 
 for(i in unique(q30.CodeDelta$location_name)){
   
@@ -672,12 +735,12 @@ names$Code<-as.numeric(gsub("C", "", names$Code))
 
 tableA3<-left_join(tableA3, names, by="Code")
 tableA3<-tableA3[order(tableA3$Median.rank, decreasing = FALSE),]
-#View(tableA3)
-write.csv(tableA3, "../new_demography/Figures/TableA3.csv")
+
+write.csv(tableA3, "../new_demography/Figures/Appendix-tableA4_0830.csv")
 
 ```
 
-#Appendix Table A6
+#Appendix Table A5
 
 ```{r}
 regions<-read.csv("../new_inputs/Country_groupings.csv")%>%
@@ -689,21 +752,21 @@ ta6<-ta6%>%group_by(age_group, NCD_region)%>%summarise(Deaths.averted.thousands 
 
 ta6<-ta6%>%spread(age_group, Deaths.averted.thousands)
 
-ta<-ta6[,c(1,3,2)]
+ta<-ta6[,c(1,4,2,3)]
 
-write.csv(ta, "../new_demography/Figures/TableA6.csv")
+write.csv(ta, "../new_demography/Figures/Appendix-tableA5_0830.csv")
 
 ```
 
 #Appendix Table A9
 ```{r}
-tc<-read.csv("../new_demography/output/Optimal/All_Intervention_2030_0819.csv")
+tc<-read.csv("../new_demography/output/Optimal/All_Intervention_2030_0830.csv")
 ta9<-tc%>%group_by(Region, senario)%>%summarise(tc=sum(total_cost)/1e9)%>%spread(senario, tc)
 
 ta9<-ta9[,c(1,3,2)]
 ta9$Increment<-ta9$Adjusted-ta9$Baseline
 
-write.csv(ta9, "../new_demography/Figures/TableA9.csv")
+#write.csv(ta9, "../new_demography/Figures/TableA9.csv")
 
 ```
 

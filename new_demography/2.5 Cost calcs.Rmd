@@ -16,6 +16,7 @@ library(tidyverse)
 library(kableExtra)
 library(reshape2)
 library(stringr)
+library(zoo)
 
 '%!in%' <- function(x,y)!('%in%'(x,y))
 ```
@@ -44,7 +45,7 @@ nontradable_conversion <- function(unit_cost,tradable_ratio, currency, cpi_adjus
 ```{r}
 
 # population in need (Output from Will)
-load("../new_demography/output/icer_rank_output_0819.Rda")
+load("../new_demography/output/icer_rank_output_0830.Rda")
 
 coverage<-read.csv("../new_inputs/Coverage0621.csv", stringsAsFactors = F)
 
@@ -57,13 +58,20 @@ uc <- uc %>%filter(Original.Currency != "NA")
 
 # Necessary files
 # Exchange rate
-exchange <- read_xlsx("../new_inputs/Exchange_rate.xlsx")
+exchange <- read_xlsx("../new_inputs/Exchange_rate.xlsx", na = "..")
+exchange<-exchange[,c(1:60)]
+ex2<-read_xlsx("../new_inputs/Exchange_rate_2020.xlsx", skip=3)
+ex2<-ex2[,c(1,61,62)]
+
+exchange<-left_join(exchange, ex2, by="Country")
+exchange <- exchange%>%gather(year, value, -Country)%>%group_by(Country)%>%fill(value)%>%spread(year, value)
+
 
 # Regional inflation
-regional_inflation <- read_xls("../new_inputs/Regional_inflation_20200212.xls", sheet = "Data")
-#regional_inflation <- read_xls("../new_inputs/Regional_inflation_2020.xls", sheet = "Data", skip=3)
-regional_inflation[,c(5:64)] <- (regional_inflation[,c(5:64)]/100)+1
-#regional_inflation[,c(5:65)] <- (regional_inflation[,c(5:65)]/100)+1
+#regional_inflation <- read_xls("../new_inputs/Regional_inflation_20200212.xls", sheet = "Data")
+regional_inflation <- read_xls("../new_inputs/Regional_inflation_2020.xls", sheet = "Data", skip=3)
+#regional_inflation[,c(5:64)] <- (regional_inflation[,c(5:64)]/100)+1
+regional_inflation[,c(5:65)] <- (regional_inflation[,c(5:65)]/100)+1
 
 # COUntry grouping
 class <- read.csv("../new_inputs/Country_groupings.csv")
@@ -84,14 +92,29 @@ country_list <- class %>%
 
 # CPI adjusted
 cpi <- read.csv("../new_inputs/CPI_WB_2018_added2.csv", stringsAsFactors=F)
-#used to be CPI_WB_2018_added2.csv but can't find that file
-#cpi<-read.csv("../new_inputs/CPI_2020.csv", stringsAsFactors=F)
-#names(cpi)[1]<-"Country"
+cpi<-cpi[,-c(66:71)]
+#add 2020 data
+cpi2<-read.csv("../new_inputs/CPI_2020.csv", stringsAsFactors=F)
+names(cpi2)[1]<-"Country"
+cpi2<-cpi2[,c(1,65)]
+cpi<-left_join(cpi, cpi2, by="Country")
+
+cpi <- cpi[,c(3,6:66)]%>%gather(year, value, -Country)%>%group_by(Country)%>%fill(value)%>%spread(year, value)
+
+#also add France
+#france<-read.csv("../new_inputs/CPI_2020.csv", stringsAsFactors=F)%>%filter(Country.Code=="FRA")
+#names(france)[1]<-"Country"
+#cpi<-bind_rows(cpi, france[,-c(2,3,4)])
 
 # GNI
 GNI <- read.csv("../new_inputs/GNI_WB_USD_2017_re2.csv", stringsAsFactors=F)
-#GNI <- read.csv("../new_inputs/GNI_2020.csv", stringsAsFactors=F)
-#names(GNI)[1]<-"Country"
+GNI<-GNI[,-c(1,4,5,6,66,67,68)]
+GNI2 <- read.csv("../new_inputs/GNI_2020.csv", stringsAsFactors=F)
+GNI2<-GNI2[,c(1,64,65)]
+names(GNI2)[1]<-"Country"
+
+GNI<-left_join(GNI, GNI2, by="Country")
+GNI <- GNI%>%gather(year, value, -Country, -Country.Code)%>%group_by(Country.Code)%>%fill(value)%>%spread(year, value)
 
 ```
 
@@ -142,7 +165,7 @@ changeq30<-all.q30%>%group_by(Code, location_name)%>%summarise(q30diff=100*sum(q
 ```{r}
 #Setting
 #tradable_ratio <- 0.3
-UC_Years <- 2017  # The output year
+UC_Years <- 2020  # The output year
 # ancillary_HF_cost <- 0.5 # possible change
 # above_HF <- 0.17 # possible change
 ```
@@ -257,7 +280,6 @@ for (c in c(1:85, 87:124)){
       n <- as.numeric(year) - 1960 +2
       end_year <- as.numeric(UC_Years - 1960 +2)
       
-      
       adjustment[i,"n"] <- n
       adjustment[i,"exchange"] <- as.numeric(exchange[exchange$Country == country, n])
       
@@ -265,9 +287,9 @@ for (c in c(1:85, 87:124)){
       adjustment[i,"exchange_end"] <- as.numeric(exchange[exchange$Country == country, end_year])
       
       # consumer price index
-      study_year <- as.numeric(year) - 1960 + 6
-      end_year <- as.numeric(UC_Years - 1960 + 6)
-      
+      study_year <- as.numeric(year) - 1960 + 2
+      end_year <- as.numeric(UC_Years - 1960 + 2)
+
       adjustment[i,"cpi_study"] <- as.numeric(cpi[cpi$Country == country, study_year])
       adjustment[i,"cpi_end"] <- as.numeric(cpi[cpi$Country == country, end_year])
       
@@ -279,7 +301,7 @@ for (c in c(1:85, 87:124)){
         as.numeric(prod(as.matrix(regional_inflation[regional_inflation$Country == "World", col_n:col_end])))
       
       #GNI
-      GNI_year <- UC_Years - 1960 +7
+      GNI_year <- UC_Years - 1960 +3
       adjustment[i,"gni"] <- as.numeric(GNI[GNI$Country == country, GNI_year])
       
       # adjustment[i,"gni"] <- ifelse(selected_country_category == "UMIC", 
@@ -635,16 +657,16 @@ final_all_ICER <- rbind(final_all_ICER, country.all3)
 
 # All data saved
 ```{r}
-file.name <- paste0("../new_demography/output/costs/All_total_cost_2030_intervention_0819",".csv")
+file.name <- paste0("../new_demography/output/costs/All_total_cost_2030_intervention_0830",".csv")
 write.csv(final_all_intervention, file.name)
 
-file.name <- paste0("../new_demography/output/costs/All_total_cost_2030_year_0819",".csv")
+file.name <- paste0("../new_demography/output/costs/All_total_cost_2030_year_0830",".csv")
 write.csv(final_all, file.name)
 
-file.name <- paste0("../new_demography/output/All_ICER_2030_0819",".csv") #FOR WILL's CODE
+file.name <- paste0("../new_demography/output/All_ICER_2030_0830",".csv") #FOR WILL's CODE
 write.csv(final_all_ICER, file.name)
 
-file.name <- paste0("../new_demography/output/costs/All_increment_2030_0819",".csv")
+file.name <- paste0("../new_demography/output/costs/All_increment_2030_0830",".csv")
 write.csv(increment_all_year, file.name)
 
 ```
@@ -665,7 +687,7 @@ df.uc.class <- df.uc%>%
 
 df.uc.class_wide <- spread(data = df.uc.class, key = Class, value = mean_uc_final)
 
-write.csv(df.uc.class_wide, "../new_demography/output/costs/Mean_UC_0819.csv")
+write.csv(df.uc.class_wide, "../new_demography/output/costs/Mean_UC_0830.csv")
 
 # Population by years and senario
 base_pin_df <- increment_all_year %>% 
@@ -673,7 +695,7 @@ base_pin_df <- increment_all_year %>%
   summarize(sum_base_pin = sum(base_pin))
 
 base_pin_df_wide <- spread(data = base_pin_df, key = year_id, value = sum_base_pin)
-write.csv(base_pin_df_wide, "../new_demography/output/costs/Baseline_pop_0819.csv")
+write.csv(base_pin_df_wide, "../new_demography/output/costs/Baseline_pop_0830.csv")
 
 # adjusted
 adjust_pin_df <- increment_all_year %>% 
@@ -681,7 +703,7 @@ adjust_pin_df <- increment_all_year %>%
   summarize(sum_base_pin = sum(adjust_pin))
 
 adjust_pin_df_wide <- spread(data = adjust_pin_df, key = year_id, value = sum_base_pin)
-write.csv(adjust_pin_df_wide, "../new_demography/output/costs/Adjusted_pop_0819.csv")
+write.csv(adjust_pin_df_wide, "../new_demography/output/costs/Adjusted_pop_0830.csv")
 
 # Incremental
 increment_df <- increment_all_year %>% 
@@ -689,14 +711,14 @@ increment_df <- increment_all_year %>%
   summarize(sum_increment = sum(incremental))
 
 increment_df_wide <- spread(data = increment_df, key = year_id, value = sum_increment)
-write.csv(increment_df_wide, "../new_demography/output/costs/Incremental_cost_0819.csv")
+write.csv(increment_df_wide, "../new_demography/output/costs/Incremental_cost_0830.csv")
 
 ```
 
 
 # Check output
 ```{r}
-icer <- read.csv("../new_demography/output/All_ICER_2030_0819.csv" , stringsAsFactors=F)
+icer <- read.csv("../new_demography/output/All_ICER_2030_0830.csv" , stringsAsFactors=F)
 
 #icer<-final_all_ICER
 
@@ -712,7 +734,7 @@ icer.sum <- icer %>%
               summarize(total_increment = sum(sum_increment_all),
                         total_life_year = sum(sum_ly_all))
 
-file.name <- paste0("../new_demography/output/costs/All_increment_ly_sum_0819",".csv")
+file.name <- paste0("../new_demography/output/costs/All_increment_ly_sum_0830",".csv")
 write.csv(icer.sum, file.name)
 
 
@@ -721,7 +743,7 @@ icer.sum <- icer %>%
               summarize(total_increment = sum(sum_increment_all),
                         total_life_year = sum(sum_ly_all))
 
-file.name <- paste0("../new_demography/output/costs/All_increment_ly_sum_re_0819",".csv")
+file.name <- paste0("../new_demography/output/costs/All_increment_ly_sum_re_0830",".csv")
 write.csv(icer.sum, file.name)
 
 ```
@@ -729,7 +751,7 @@ write.csv(icer.sum, file.name)
 
 # ICERS by region
 ```{r ICER}
-icer <- read.csv("../new_demography/output/All_ICER_2030_0819.csv", stringsAsFactors=F)
+icer <- read.csv("../new_demography/output/All_ICER_2030_0830.csv", stringsAsFactors=F)
 icer$NCD <- icer$Code
 self_harm <- c("C2.9", "C2.10", "C2.11", "C2.12")
 
@@ -777,8 +799,8 @@ ly_wide2 <- dcast(data = icer.int, formula = Code ~ NCD_region,
          "Oceania"
          )
 
-write.csv(ly_wide, "../new_demography/output/costs/ICER_region_NCD_0819.csv") #ICER by DALYs
-write.csv(ly_wide2, "../new_demography/output/costs/ICER_region_NCD2_0819.csv") #ICER by 40q30
+write.csv(ly_wide, "../new_demography/output/costs/ICER_region_NCD_0830.csv") #ICER by DALYs
+write.csv(ly_wide2, "../new_demography/output/costs/ICER_region_NCD2_0830.csv") #ICER by 40q30
 
 
 ```
@@ -813,8 +835,8 @@ rank_wide2 <- dcast(data = icer.int2, formula = Code ~ NCD_region,
          "Oceania"
          )
 
-write.csv(rank_wide, "../new_demography/output/costs/Rank_region_NCD_0819.csv") #Ranked by DALYs
-write.csv(rank_wide2, "../new_demography/output/costs/Rank_region_NCD2_0819.csv") #Ranked by 40q30
+write.csv(rank_wide, "../new_demography/output/costs/Rank_region_NCD_0830.csv") #Ranked by DALYs
+write.csv(rank_wide2, "../new_demography/output/costs/Rank_region_NCD2_0830.csv") #Ranked by 40q30
 
 
 ```
@@ -849,11 +871,11 @@ percent_wide2 <- percent_wide %>%
          "Oceania"
          )
 # Save
-write.csv(percent_wide2, "../new_demography/output/costs/Percent_region_NCD_0819.csv")
+write.csv(percent_wide2, "../new_demography/output/costs/Percent_region_NCD_0830.csv")
 
 ```
 
-#Figure 1 (for paper)
+#Figure 2 (for paper)
 
 ``` {r Heat Map}
 
@@ -867,15 +889,15 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 #rank by 40q30
 #rank<-rank_wide2
-rank<-read.csv("../new_demography/output/costs/Rank_region_NCD2_0819.csv")%>%select(-c(X)) 
+rank<-read.csv("../new_demography/output/costs/Rank_region_NCD2_0830.csv")%>%select(-c(X)) 
 #rank_daly<-rank_wide
-rank_daly<-read.csv("../new_demography/output/costs/Rank_region_NCD_0819.csv")%>%select(-c(X)) 
+rank_daly<-read.csv("../new_demography/output/costs/Rank_region_NCD_0830.csv")%>%select(-c(X)) 
 #color code by DALYs
 #icer<-percent_wide2
-icer<-read.csv("../new_demography/output/costs/Percent_region_NCD_0819.csv")%>%select(-c(X)) 
+icer<-read.csv("../new_demography/output/costs/Percent_region_NCD_0830.csv")%>%select(-c(X)) 
 #compare the two icer metrics for double legend
 #icer2<-ly_wide2
-icer2<-read.csv("../new_demography/output/costs/ICER_region_NCD2_0819.csv")%>%select(-c(X)) 
+icer2<-read.csv("../new_demography/output/costs/ICER_region_NCD2_0830.csv")%>%select(-c(X)) 
 
 dt<-rank%>%gather(NCD_region, rank, -Code)
 dt<-left_join(dt, rank_daly%>%gather(NCD_region, rank, -Code)%>%rename(rank_daly=rank), by=c("Code", "NCD_region"))
@@ -928,7 +950,7 @@ ggplot(dt, aes(y=log(icer_40q30), x=log(icer_gdp)))+
   ylab("Log(% change in 40q30 \nper $1 million)")+
   geom_smooth(method='lm', formula= y~x, se=F)
 
-ggsave("Figures/AdditionalFigure_option_0819.png", height = 7, width = 9, units = "in")
+#ggsave("Figures/AdditionalFigure_option_0819.png", height = 7, width = 9, units = "in")
 
 ggplot(dt, aes(y=log(icer_40q30), x=log(icer_gdp), color=NCD_region))+
   geom_point()+
@@ -936,7 +958,7 @@ ggplot(dt, aes(y=log(icer_40q30), x=log(icer_gdp), color=NCD_region))+
   ylab("Log(% change in 40q30 \nper $1 million)")+
   geom_smooth(method='lm', formula= y~x, se=F)
 
-ggsave("Figures/AdditionalFigure_option2_0819.png", height = 7, width = 9, units = "in")
+#ggsave("Figures/AdditionalFigure_option2_0819.png", height = 7, width = 9, units = "in")
 
 
 dt$text<-paste0("(",dt$rank_daly,",",dt$rank,")")
@@ -949,9 +971,9 @@ ggplot(dt%>%group_by(Code)%>%summarise(icer_40q30=mean(icer_40q30), icer_gdp = m
   geom_point()+
   xlab("Log(ICER as a share of GDP per capita)")+
   ylab("Log(% change in 40q30 \nper $1 million)")+
-  geom_label_repel(aes(label=text),box.padding = 0.1, point.padding=0.1)
+  geom_label_repel(aes(label=text),box.padding = 0.1, point.padding=0.1, max.overlaps = 15)
 
-ggsave("Figures/AdditionalFigure_option3_0819.png", height = 7, width = 11, units = "in")
+ggsave("Figures/Appendix-figureA2_0830.png", height = 7, width = 11, units = "in")
 
 
 fit<-lm(log(icer_40q30)~log(icer_gdp), data=dt)
@@ -995,7 +1017,7 @@ allints$colorbreak[allints$icer_gdp>2.3]<-">2.3 (<0.0003%)"
   #      legend.direction="horizontal")+
   theme(axis.title.x=element_blank(),axis.title.y=element_blank() )
   
-  ggsave("Figures/Figure1_0819.png", height = 7, width = 9, units = "in")
+  ggsave("Figures/Figure2_0830.png", height = 7, width = 9, units = "in")
 
 ```
 
@@ -1006,25 +1028,41 @@ total_pop<-wpp.in%>%filter(year==2019)%>%group_by(location_name)%>%
   summarise(pop=sum(Nx))%>%rename(Country=location_name)
 
 # population in need (Output from Will)
-load("../new_demography/output/icer_rank_output_0819.Rda")
+load("../new_demography/output/icer_rank_output_0830.Rda")
 all.pin$unique<-paste0(all.pin$Code,"_",all.pin$sub_id)
 
 codelist<-read.csv("../new_inputs/caseload.csv", stringsAsFactors = F)
 codelist$unique<-paste0(codelist$NCD,"_",codelist$sub_id)
 
-cases<-all.pin%>%filter(group=="Baseline", unique%in%codelist$unique, year_id==2020)%>%group_by(Code, location_name)%>%summarise(cases=sum(pin*Coverage))
+cases<-all.pin%>%filter(group=="Baseline", unique%in%codelist$unique, year_id==2020)%>%group_by(Code, location_name)%>%summarise(cases=sum(pin/Coverage))
 
 cases<-left_join(cases, total_pop%>%rename(location_name=Country), by="location_name")
 
 any(is.na(cases))
 
-caseload<-cases%>%group_by(Code)%>%summarise(volume_per1e5pop=sum(cases/pop)*100000)
+caseload<-cases%>%group_by(Code)%>%summarise(volume_per1e5pop=(sum(cases)/sum(pop))*100000)
 intnames<-read.csv("../new_inputs/names.csv", stringsAsFactors = F)
 intnames$Code<-as.numeric(sub('C','',intnames$Code))
 
 table4<-left_join(caseload, intnames, by="Code")
 
-write.csv(table4, "Figures/Table4_0819.csv")
+write.csv(table4, "Figures/Table4_0830.csv")
+
+
+#alt#
+cases2<-all.pin%>%filter(group=="Baseline", year_id==2020)%>%group_by(Code, location_name)%>%summarise(cases=sum(pin/Coverage))
+cases2<-left_join(cases2, total_pop%>%rename(location_name=Country), by="location_name")
+
+any(is.na(cases2))
+
+caseload2<-cases2%>%group_by(Code)%>%summarise(volume_per1e5pop=(sum(cases)/sum(pop))*100000)
+intnames<-read.csv("../new_inputs/names.csv", stringsAsFactors = F)
+intnames$Code<-as.numeric(sub('C','',intnames$Code))
+
+table4.2<-left_join(caseload2, intnames, by="Code")
+
+#write.csv(table4.2, "Figures/Table4.2_0819.csv")
+
 
 ```
 
@@ -1032,11 +1070,10 @@ write.csv(table4, "Figures/Table4_0819.csv")
 
 #Cost-effectiveness of NCD4 and intersectoral
 
-#add deaths??
-#add intersectoral interventions for dalys, 40q30
+#add intersectoral interventions for deaths, dalys, 40q30 - not costs
 
-load("../new_demography/output/icer_rank_output_0819.Rda")
-icer <- read.csv("../new_demography/output/All_ICER_2030_0819.csv", stringsAsFactors=F)
+load("../new_demography/output/icer_rank_output_0830.Rda")
+icer <- read.csv("../new_demography/output/All_ICER_2030_0830.csv", stringsAsFactors=F)
 icer<-left_join(icer, total_pop, by="Country")
 
 tableA2<-icer%>%group_by(Code)%>%summarise(increment.billions=sum(sum_increment_all)/1e9, 
@@ -1052,6 +1089,12 @@ tableA2<-left_join(tableA2, names, by="Code")
 
 tableA2<-tableA2[order(tableA2$Cost.per.diff40q30, decreasing=FALSE),]
 
-write.csv(tableA2, "../new_demography/Figures/TableA2_0819.csv")
+##add deaths averted
+deaths<-dadt.all%>%group_by(Code)%>%summarise(deaths.thousands = sum(Deaths.Avert)/1000)
+tableA2<-left_join(deaths, tableA2, by="Code")
+tableA2$Cost.per.death<-(tableA2$increment.billions*1e9)/(tableA2$deaths.thousands*1000)
+
+
+write.csv(tableA2, "../new_demography/Figures/Appendix-tableA3_0830.csv")
 
 ```

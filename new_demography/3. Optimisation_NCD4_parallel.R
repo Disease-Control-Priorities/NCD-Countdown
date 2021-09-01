@@ -17,7 +17,7 @@ load("../new_inputs/PreppedData0819.Rda")
 source("utils/demmod_icer_rank.R")
 
 # The file for the ICER ranks, ideally stored here as an output of Yoshis code
-icer_in  <- fread("output/All_ICER_2030_0819.csv")
+icer_in  <- fread("output/All_ICER_2030_0830.csv")
 icer_in<- icer_in%>%filter(Code<5)
 ###############################################################################################################################
 
@@ -42,8 +42,6 @@ clusterEvalQ(cl = parallelCluster, {
   pacman::p_load(data.table, dplyr, tidyr, progress, pspline, MortalityLaws)  # make sure we load the package on the cluster
   #setDTthreads(1)     # data.table
 })
-
-
 
 
 optim_parallel <- function(is,interventions,all.pin.l, all.dalys.l,all.q30.l,dadt.all.l, df.targetq30.l) {
@@ -86,7 +84,7 @@ optim_parallel <- function(is,interventions,all.pin.l, all.dalys.l,all.q30.l,dad
       inter0 = c(inter0, inter)
     }  
     
-    projection = project_pop(is, inter0, 0.025, "yes", sel.cse, "varying", "yes", "no")
+    projection = project_pop(is, inter0, 0.025, "yes", sel.cse, "varying", "yes", "yes",1)
     
     all.pin.l[[k]]    = data.table(projection$pin.est)
     all.dalys.l[[k]]  = data.table(projection$dalys)
@@ -214,7 +212,7 @@ dadt.all.opt <- dadt.all %>%
   right_join(q30.CodeDelta, by = c("location_name","n.inters"))
 
 save(all.pin.opt, dalys.opt, dadt.all.opt, q30.code, q30.sel, q30.CodeDelta, country.lab,
-     file = "output/Optim.Out0819_2.Rda")
+     file = "output/Optim.Out0830.Rda")
 
 
 stopCluster(parallelCluster)

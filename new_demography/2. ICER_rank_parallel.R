@@ -18,9 +18,7 @@ load("../new_inputs/PreppedData0819.Rda")
 source("utils/demmod_icer_rank.R")
 
 ###############################################################################################################################
-# Loop getting pin and DALY estimates
-
-all.locs      <- countries[c(1:85,87:124)]
+all.locs      <- countries[c(1:85,87:124)] #excluded Palestine (#86)
 interventions <-  pin.groups %>% filter(calc_ICER=="yes") %>% pull(Code) %>% unique() %>% sort()
 total         <- length(all.locs)*length(interventions)
 sel.cse       <- cse_g %>% pull(cause_name) %>% unique()
@@ -32,24 +30,20 @@ parallelCluster <- makeCluster(32,type = "SOCK",methods = FALSE,outfile="log.txt
 setDefaultCluster(parallelCluster)
 registerDoParallel(parallelCluster)
 
-# set MRO's MKL threads to 1 and set data.table threads to 1
 clusterEvalQ(cl = parallelCluster, {
-  #setMKLthreads(1)    # MRO
-  pacman::p_load(data.table, dplyr, tidyr, progress, pspline, MortalityLaws)  # make sure we load the package on the cluster
-  #setDTthreads(1)     # data.table
+  #setMKLthreads(1)    # set each cluster to single thread if worried about thrashing
+  pacman::p_load(data.table, dplyr, tidyr, progress, pspline, MortalityLaws)  
+  # make sure we load the package on the cluster
+  #setDTthreads(1)     # set each cluster to single thread if worried about thrashing
 })
 
-
-#pb  <- winProgressBar(title ="progress bar", min = 0, max = total, width = 300)
-#pb  <- winProgressBar(title = paste("progress bar", is), min = 0, max = total, width = 300)
-
-do_the_thing <- function(is,interventions,all.pin.l,all.dalys.l,all.q30.l, dadt.all.l) {
+rank_fxn <- function(is,interventions,all.pin.l,all.dalys.l,all.q30.l, dadt.all.l) {
   k = 1
   for (inter in interventions){
-    #setWinProgressBar(pb, k, title=paste0(round(k/total*100,3),"% done"))
     
-    # Increasing by 1p.p for ICER calculation
-    projection <- project_pop(is, inter, 0.10, "no", sel.cse, "fixed", "yes", "no")
+    # Increasing by 10% for ICER calculation, no intersectoral policies
+    # Calc PIN, 1x covid shock
+    projection <- project_pop(is, inter, 0.10, "no", sel.cse, "fixed", "yes", "yes", 1)
     
     all.pin.l[[k]]    = data.table(projection$pin.est)
     all.dalys.l[[k]]  = data.table(projection$dalys) %>% mutate(Code = inter)
@@ -62,15 +56,15 @@ do_the_thing <- function(is,interventions,all.pin.l,all.dalys.l,all.q30.l, dadt.
   return(list(all.pin.l,all.dalys.l,all.q30.l, dadt.all.l))
 }
 
+# Run function
 Sys.time()
 everything <- foreach (is = all.locs, .combine ='rbind') %dopar% {
-  do_the_thing(is,interventions,all.pin.l,all.dalys.l,all.q30.l, dadt.all.l)
+  rank_fxn(is,interventions,all.pin.l,all.dalys.l,all.q30.l, dadt.all.l)
 }
-
 Sys.time()
-#close(pb)
-  
+#End timer
 
+#Bind results, each of the 123 countries results stored in a list
 all.pin <- rbindlist(everything[[1]])
 
 for (i in 2:123){
@@ -103,7 +97,7 @@ stopCluster(parallelCluster)
 
 #########################################################################################
 
-save(all.pin, all.dalys, all.q30, dadt.all, file = "output/icer_rank_output_0819.Rda")
+save(all.pin, all.dalys, all.q30, dadt.all, file = "output/icer_rank_output_0830.Rda")
 
 on.exit({
   try({

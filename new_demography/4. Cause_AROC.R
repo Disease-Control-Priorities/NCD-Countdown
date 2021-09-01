@@ -12,7 +12,7 @@ source("utils/demmod_icer_rank.R")
 ######################################################################
 
 all.locs      <- countries
-all.locs[86]
+#all.locs[86]
 all.locs<-all.locs[c(1:85,87:124)] #not palestine
 causes        <- cse_g %>% 
    filter(ncd_cause %!in% c("All Causes")) %>% 
@@ -35,7 +35,7 @@ pb <- winProgressBar(title = "progress bar", min = 0,  max = total, width = 300)
 
 k = 1
 r = 1
-for (is in all.locs[1:2]){
+for (is in all.locs){
    c = 1
    
    for (cause in causes){
@@ -78,7 +78,7 @@ for (is in all.locs[1:2]){
    inter   <-   int.df %>% filter(location_name == is & cause_name %in% cause2 & Code<5) %>% 
       pull(Code) %>% unique() %>% sort()
       
-      proj        <- project_pop(is, inter, 0.90, "yes", cause2, "fixed", "no", "no")
+      proj        <- project_pop(is, inter, 0.90, "yes", cause2, "fixed", "no", "yes", 1)
       ltcause_out <- proj$ltcause %>% mutate(ncd_cause = cause)
       Pb[r,c,,]   <- proj$P0
       Pa[r,c,,]   <- proj$P1
@@ -120,7 +120,7 @@ D1cse_all = apply(Da, c(1,3,4), sum)
 sexes  <- c("Female","Male")
 n      <- 12
 r      <- 1
-for (is in all.locs[1:2]){
+for (is in all.locs){
    q300a <- q30.est.sex(P0_all[r,,], D0cse_all[r,,], n)
    q301a <- q30.est.sex(P1_all[r,,], D1cse_all[r,,], n)
    
@@ -195,7 +195,7 @@ out_lt_cause <- left_join(ts_pc %>% filter(byear == 2015) %>% mutate(byear = NUL
    gather(sex_name, val, -location_name, -metric, -ncd_cause, -iso3, -region) %>% 
    spread(metric, val)
 
-save(ts_40q30, out_lt_cause, countries, cseorder, file = "output/NCDcountdown_bycause.df0803.rda")
+save(ts_40q30, out_lt_cause, countries, cseorder, file = "output/NCDcountdown_bycause.df0830.rda")
 
 ################################################################
 #-----------------------
