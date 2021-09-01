@@ -1,8 +1,0 @@
-starting worker for localhost:11295 
-Type: EXEC 
-Type: EXEC 
-Type: EXEC 
-Type: EXEC 
-Type: EXEC 
-Type: DONE 
-Type: DONE 
