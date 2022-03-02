@@ -1,7 +1,7 @@
 # NCD-Countdown
 
 Code for the NCD Countdown paper can be found in the folder titled ‘new_demography’. 
-The script are numbered in the order they are to be run. 
+The scripts are numbered in the order they are to be run. 
 Anything with the extension ‘_parallel’ was run on a high-performance computer utilizing multi-threaded programming to parallelize the code for the 123 country-specific runs.
 
 Required data for the code can be found in the ‘new_inputs’ folder. 
