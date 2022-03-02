@@ -7,7 +7,12 @@ library(dplyr)
 library(readxl)
 library(tinytex)
 library(tidyr)
-
+library(ggridges)
+library(viridis)
+library(tidyverse)
+library(officer)
+library(rvg)
+library(magrittr)
 ##################### AROC ################################################
 
 #-----------------------
@@ -61,7 +66,7 @@ plot<-na.omit(lpc.plot %>%
                 mutate(Source = ifelse(Source == "Adjusted",  "Adjust to 90%", Source),
                        text = factor(Source, levels = levs), value = lpc) )
 
-ggplot(plot%>%filter(Source!="Baseline")) +  
+ggp<-ggplot(plot%>%filter(Source!="Baseline")) +  
   geom_vline(xintercept = 0, colour = "grey") + 
   geom_vline(xintercept =  -2.703101, colour = "grey", lty = "dashed") +
   inner + scale_fill_viridis(discrete=TRUE) +
@@ -74,7 +79,19 @@ ggplot(plot%>%filter(Source!="Baseline")) +
   ylab("")+ 
   xlim(-20,5)
 
-ggsave("Figures/Figure1_0830.png")
+ggp
+
+ggsave("Figures/Figure1_1014.png", width=10, height=6)
+ggsave("Figure1.pdf", height=6, width=10)
+
+
+# Create a new powerpoint document
+read_pptx() %>%
+  add_slide(layout='Title and Content',master='Office Theme') %>%
+  ph_with('Figure1', location = ph_location_type(type="title")) %>%
+  ph_with(dml(ggobj=ggp),
+          location = ph_location_type(type="body")) %>%
+  print('editable_figures.pptx')
 
 ##diff##
 inner = geom_density_ridges(alpha=0.4, aes(y=ncd_cause, x=value))
@@ -151,12 +168,10 @@ global_target<-weighted.mean(goal.q30.out$Target_40q30, goal.q30.out$pop)
 global$year<-as.numeric(global$year_id)
 
 ggplot(global, aes(x=year, y=q30, color=scenario, group=scenario))+
-  geom_point()+
-  geom_line()+
+  geom_line(size=1)+
   geom_line(y=global_target, color="darkgrey", lty=2)+
   ylab("40q30 (%)")+
   xlab("Year")+
-  ggtitle("Projected 40q30 over time, Global")+
   labs(color="Scenario")+
   coord_cartesian(ylim=c(0,30))+
   scale_color_manual(values=c("#cc415a", "#057fee", "#22a884", "black"))+
@@ -252,7 +267,7 @@ p<-ggplot(plot%>%filter(s_covid==1, s_inc==0.025, NCD_region!="Sub-Saharan Afric
   geom_text(aes(label=label), vjust=-1)+
   geom_line(y=1, color="red", lty=2)+
   geom_line(y=0.67, color="#009FD7", lty=2)
-  
+
 
 p
 
@@ -275,7 +290,7 @@ plot2$text[plot2$location_name=="Regional average" & plot2$year_id==2030]<-"Regi
 plot2$year<-as.numeric(plot2$year_id)
 
 ggplot(plot2, 
-          aes(x=year, y=diff, group=location_name, color=label, size=label))+
+       aes(x=year, y=diff, group=location_name, color=label, size=label))+
   geom_line()+
   ylab("Change in 40q30 relative to 2015")+
   geom_line(y=1, color="black", lty=2, size=1)+
@@ -314,9 +329,9 @@ plot2$type[plot2$NCD_region!="Global"]<-"lt1"
 
 
 cbPalette <- c("#E69F00", "#56B4E9", "#009E73", "grey", "#0072B2", "#D55E00", "#CC79A7")
-  
+
 ggplot(plot2, 
-          aes(x=year_id, y=diff, group=groups, color=groups))+
+       aes(x=year_id, y=diff, group=groups, color=groups))+
   geom_line(aes(size=type))+
   scale_size_manual(values=c(0.8, 1.2), guide=FALSE)+
   scale_color_manual(values=c('black', cbPalette ))+
@@ -426,18 +441,37 @@ load("../new_inputs/PreppedData0819.Rda")
 pop<-wpp.in%>%filter(year==2019)%>%group_by(location_name)%>%summarise(pop=sum(Nx))
 regions<-read.csv("../new_inputs/Country_groupings.csv")%>%select(c(Country, NCD_region))%>%rename(location_name = Country)
 
-
 tableA8<-left_join(q30.code%>%filter(n.inters==1), pop, by="location_name")
 tableA8<-left_join(tableA8, regions, by="location_name")
 
-reg<-tableA8%>%group_by(NCD_region)%>%summarise(q2015=weighted.mean(`40q30_15`, pop), q2030 = weighted.mean(`40q30_2030_adj`, pop))
-global<-tableA8%>%summarise(q2015=weighted.mean(`40q30_15`, pop), q2030 = weighted.mean(`40q30_2030_adj`, pop))%>%
-  mutate(NCD_region = "All low- and middle-income countries")
+reg<-tableA8%>%group_by(NCD_region)%>%summarise(q2015=weighted.mean(`40q30_15`, pop), 
+                                                q2030_int = weighted.mean(`40q30_2030_adj`, pop),
+                                                q2030_base = weighted.mean(`40q30_2030_base`, pop))
+global<-tableA8%>%summarise(q2015=weighted.mean(`40q30_15`, pop), 
+                            q2030_int = weighted.mean(`40q30_2030_adj`, pop),
+                            q2030_base = weighted.mean(`40q30_2030_base`, pop))%>%mutate(NCD_region = "All low- and middle-income countries")
 
 tableA8<-rbind(reg, global)
 tableA8<-tableA8[c(4,1,2,7,6,3,5,8),]
-tableA8$percent_Change<-100*(tableA8$q2030-tableA8$q2015)/tableA8$q2015
+
+load("output/Optim.Out0830.Rda")
+
+add<-left_join(q30.code, pop, by="location_name")
+add<-left_join(add, regions, by="location_name")
+
+reg<-add%>%group_by(NCD_region)%>%summarise(q2030_ref = weighted.mean(`40q30_2030_adj`, pop))
+global<-add%>%summarise(q2030_ref = weighted.mean(`40q30_2030_adj`, pop))%>%mutate(NCD_region = "All low- and middle-income countries")
+
+add<-rbind(reg, global)
+
+tableA8<-left_join(tableA8, add)
+tableA8<-tableA8%>%mutate(improve1 = 100*(q2030_ref-q2030_base)/q2030_base,
+                          improve2 = 100*(q2030_int-q2030_base)/q2030_base,
+                          improve3 = 100*improve2/improve1)
+
 write.csv(tableA8, "Figures/Appendix-tableA8.csv")
+
+
 
 #extra tableA3
 dadt.all.opt%>%filter(byear==2015)%>%summarise(DA=sum(Deaths.Avert))%>%pull(DA)/1000
@@ -447,24 +481,91 @@ left_join(q30.sel%>%filter(n.inters==1), pop, by="location_name")%>%summarise(ch
 load("output/intersectoral_output_salt.Rda")
 dadt.all.opt%>%filter(byear==2015)%>%summarise(DA=sum(Deaths.Avert))%>%pull(DA)/1000
 dalys.opt%>%filter(byear==2015)%>%summarise(DA=sum(DALY.ave))%>%pull(DA)/1000000
-left_join(q30.sel%>%filter(n.inters==1), pop, by="location_name")%>%summarise(change=weighted.mean((`40q30_2030_adj` - `40q30_2030_base`), pop))%>%pull(change)
+left_join(q30.sel%>%filter(n.inters==1), pop, by="location_name")%>%summarise(change=weighted.mean((mChange15), pop))%>%pull(change)
 
 load("output/intersectoral_output_transfat.Rda")
 dadt.all.opt%>%filter(byear==2015)%>%summarise(DA=sum(Deaths.Avert))%>%pull(DA)/1000
 dalys.opt%>%filter(byear==2015)%>%summarise(DA=sum(DALY.ave))%>%pull(DA)/1000000
-left_join(q30.sel%>%filter(n.inters==1), pop, by="location_name")%>%summarise(change=weighted.mean((`40q30_2030_adj` - `40q30_2030_base`), pop))%>%pull(change)
+left_join(q30.sel%>%filter(n.inters==1), pop, by="location_name")%>%summarise(change=weighted.mean((mChange15), pop))%>%pull(change)
 
 load("output/intersectoral_output_alcpolicy.Rda")
 dadt.all.opt%>%filter(byear==2015)%>%summarise(DA=sum(Deaths.Avert))%>%pull(DA)/1000
 dalys.opt%>%filter(byear==2015)%>%summarise(DA=sum(DALY.ave))%>%pull(DA)/1000000
-left_join(q30.sel%>%filter(n.inters==1), pop, by="location_name")%>%summarise(change=weighted.mean((`40q30_2030_adj` - `40q30_2030_base`), pop))%>%pull(change)
+left_join(q30.sel%>%filter(n.inters==1), pop, by="location_name")%>%summarise(change=weighted.mean((mChange15), pop))%>%pull(change)
 
 load("output/intersectoral_output_alctax.Rda")
 dadt.all.opt%>%filter(byear==2015)%>%summarise(DA=sum(Deaths.Avert))%>%pull(DA)/1000
 dalys.opt%>%filter(byear==2015)%>%summarise(DA=sum(DALY.ave))%>%pull(DA)/1000000
-left_join(q30.sel%>%filter(n.inters==1), pop, by="location_name")%>%summarise(change=weighted.mean((`40q30_2030_adj` - `40q30_2030_base`), pop))%>%pull(change)
+left_join(q30.sel%>%filter(n.inters==1), pop, by="location_name")%>%summarise(change=weighted.mean((mChange15), pop))%>%pull(change)
+
+load("output/intersectoral_output_smokingpolicy.Rda")
+dadt.all.opt%>%filter(byear==2015)%>%summarise(DA=sum(Deaths.Avert))%>%pull(DA)/1000
+dalys.opt%>%filter(byear==2015)%>%summarise(DA=sum(DALY.ave))%>%pull(DA)/1000000
+left_join(q30.sel%>%filter(n.inters==1), pop, by="location_name")%>%summarise(change=weighted.mean((mChange15), pop))%>%pull(change)
 
 load("output/intersectoral_output_smokingtax.Rda")
 dadt.all.opt%>%filter(byear==2015)%>%summarise(DA=sum(Deaths.Avert))%>%pull(DA)/1000
 dalys.opt%>%filter(byear==2015)%>%summarise(DA=sum(DALY.ave))%>%pull(DA)/1000000
-left_join(q30.sel%>%filter(n.inters==1), pop, by="location_name")%>%summarise(change=weighted.mean((`40q30_2030_adj` - `40q30_2030_base`), pop))%>%pull(change)
+left_join(q30.sel%>%filter(n.inters==1), pop, by="location_name")%>%summarise(change=weighted.mean((mChange15), pop))%>%pull(change)
+
+2400+810+13000+12000+51+270
+4.1+4.2+2.9+3.3+4.2+4.2
+25+8.6+130+110+0.33+1.6
+
+#Inspect by country#
+coverage<-read.csv("../new_inputs/Coverage0621.csv", stringsAsFactors = F)%>%
+  filter(Country%in%c("China", "Indonesia", "Iran", "Ethiopia", "South Africa", "Brazil"))%>%
+  select(c(Country, X5.2, X5.4))
+names(coverage)[2]<-"Coverage"
+names(coverage)[3]<-"Alcohol_policy_coverage"
+
+load("output/intersectoral_output_alcpolicy.Rda")
+policy<-q30.sel%>%filter(n.inters==1)%>%mutate(Change_base_relative = 100*(`40q30_2030_adj`-`40q30_2030_base`)/`40q30_2030_base`,
+                                               Change15_relative = 100*(`40q30_2030_adj`-`40q30_15`)/`40q30_15`,
+                                               Change_base = (`40q30_2030_adj`-`40q30_2030_base`),
+                                               Change15 = (`40q30_2030_adj`-`40q30_15`))%>%
+  select(c(location_name, Change15, Change_base, Change15_relative, Change_base_relative))%>%rename(Country = location_name)%>%
+  filter(Country%in%c("China", "Indonesia", "Iran", "Ethiopia", "South Africa", "Brazil"))
+
+load("output/intersectoral_output_alctax.Rda")
+tax<-q30.sel%>%filter(n.inters==1)%>%mutate(Change_base_relative = 100*(`40q30_2030_adj`-`40q30_2030_base`)/`40q30_2030_base`,
+                                            Change15_relative = 100*(`40q30_2030_adj`-`40q30_15`)/`40q30_15`,
+                                            Change_base = (`40q30_2030_adj`-`40q30_2030_base`),
+                                            Change15 = (`40q30_2030_adj`-`40q30_15`))%>%
+  select(c(location_name, Change15, Change_base, Change15_relative, Change_base_relative))%>%rename(Country = location_name)%>%
+  filter(Country%in%c("Afghanistan", "China", "Indonesia", "Iran", "Ethiopia", "South Africa", "Brazil"))
+
+policy<-left_join(coverage[,c(1,3)], policy, by="Country")%>%rename(Coverage = "Alcohol_policy_coverage")%>%mutate(intervention = "Alcohol policy")
+tax<-left_join(coverage[,c(1,2)], tax, by="Country")%>%mutate(intervention = "Alcohol tax")
+print<-rbind(tax, policy)
+
+write.csv(print, "output/intersectoral_inspect.csv")
+
+
+
+###print figure A1 
+delays<-read_excel("../new_inputs/TobaccoAlcoholDelayedImpact.xlsx")%>%
+  rename(`Alcohol-CVD,Sodium,Trans fats` = `Alcohol-CVD`,
+         `Alcohol-GastroCA` = `Alcohol-CA1`,
+         `Alcohol-UpperAeroCA` = `Alcohol-CA2`)%>%
+  gather(links, prop, -Year)%>%
+  filter(links%!in%c("Tobacco-Other", "Alcohol-GI", "Alcohol-MH"))%>%
+  mutate(links=factor(links, levels = c("Alcohol-CVD,Sodium,Trans fats",
+                                        "Tobacco-Resp",
+                                        "Tobacco-CA",
+                                        "Alcohol-GastroCA",
+                                        "Alcohol-UpperAeroCA",
+                                        "Tobacco-CVD")))
+
+ggplot(delays, aes(x=Year-2020, y=prop*100, color=links))+
+  geom_line(size=1)+
+  theme_bw()+
+  scale_color_manual(values=c(cbPalette ))+
+  ylab("Percentage of total effect size in target population (%)")+
+  xlab("Number of years following policy implementation")+
+  scale_x_continuous(breaks=c(0,2,4,6,8,10))+
+  labs(color="")
+
+ggsave("Figures/Appendix-figure_A1.png", width=10, height=6)
+
+
